@@ -18,8 +18,8 @@ class Teacher(models.Model):
 
 
 class Student(models.Model):
-    student_group = models.ForeignKey(StudentGroup, on_delete=models.SET_NULL, related_name='students', null=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='student', verbose_name='Студент')
+    student_group = models.ForeignKey(StudentGroup, on_delete=models.SET_NULL, related_name='students', null=True)
 
     def get_full_name(self):
         return f"{self.user.first_name} {self.user.first_name}"

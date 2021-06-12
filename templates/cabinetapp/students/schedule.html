@@ -1,10 +1,103 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'mainapp/base.html' %}
+{% block title %}Профиль {{ student.get_full_name }} {% endblock %}
 
-</body>
-</html>
+{% block content %}
+    <a href="{% url 'student_schedule' %}">Расписание</a>
+    <a href="{% url 'student_homework' %}">Дом задание</a>
+    <a href="{% url 'student_grades' %}">Оценки</a>
+    <div class="container">
+        <h1>Расписание для группы "{{ student.student.student_group }}"</h1>
+        <div class="table" style="text-align: center">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Понедельник</th>
+                    <th>Вторник</th>
+                    <th>Среда</th>
+                    <th>Четверг</th>
+                    <th>Пятница</th>
+                    <th>Суббота</th>
+                    <th>Воскресенье</th>
+                </tr>
+                </thead>
+                <td>
+                    <table class="table">
+                        {% for time_lesson in time_lessons %}
+                            <tr>
+                                <th>{{ time_lesson }}</th>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </td>
+                <td>
+                    <table class="table">
+                        {% for event in monday %}
+                            <tr>
+                                <td>{% if event.subject %}{{ event.subject }}{% else %}---{% endif %}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </td>
+
+                <td>
+                    <table class="table">
+                        {% for event in tuesday %}
+                            <tr>
+                                <td>{% if event.subject %}{{ event.subject }}{% else %}Нет урока{% endif %}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </td>
+                <td>
+                    <table class="table">
+                        {% for event in thursday %}
+                            <tr>
+                                <td>{% if event.subject %}{{ event.subject }}{% else %}Нет урока{% endif %}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </td>
+                <td>
+                    <table class="table">
+                        {% for event in wednesday%}
+                            <tr>
+                                <td>{% if event.subject %}{{ event.subject }}{% else %}Нет урока{% endif %}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </td>
+                <td>
+                    <table class="table">
+                        {% for event in friday %}
+                            <tr>
+                                <td>{% if event.subject %}{{ event.subject }}{% else %}Нет урока{% endif %}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </td>
+                <td>
+                    <table class="table">
+                        {% for event in saturday %}
+                            <tr>
+                                <td>{% if event.subject %}{{ event.subject }}{% endif %}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </td>
+                <td>
+                    <table class="table">
+                        {% for event in sunday %}
+                            <tr>
+                                <td>{% if event.subject %}{{ event.subject }}{% else %} {% endif %}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </td>
+
+
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

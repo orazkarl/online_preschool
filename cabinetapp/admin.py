@@ -1,8 +1,9 @@
 from django.contrib import admin
 
-from cabinetapp.models import Subject, StudentGroup, Schedule, EventSchedule
+from cabinetapp.models import Subject, StudentGroup, Schedule, EventSchedule, TimeLesson
 
 admin.site.register(Subject)
+admin.site.register(TimeLesson)
 # admin.site.register(StudentGroup)
 
 @admin.register(StudentGroup)
@@ -12,10 +13,10 @@ class StudentGroupAdmin(admin.ModelAdmin):
 
 
 
-class EventScheduleInline(admin.StackedInline):
+class EventScheduleInline(admin.TabularInline):
     model = EventSchedule
     raw_id_fields = ['schedule']
-    extra = 3
+    extra = 1
 
 
 @admin.register(Schedule)
