@@ -1,0 +1,325 @@
+{% extends 'mainapp/base.html' %}
+{% block title %}Профиль {{ student.get_full_name }} {% endblock %}
+
+{% block content %}
+    <style>
+        .post-card__image {
+            position: relative;
+            overflow: hidden;
+            border-radius: 1.5px
+        }
+
+        .post-card__image img {
+            max-width: 100%
+        }
+
+        .post-card__image :before {
+            content: "";
+            display: block;
+            position: absolute;
+            left: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, .2);
+            opacity: 0;
+            transition: opacity .6s;
+            z-index: 1
+        }
+
+        .post-card__image:hover :before {
+            opacity: 1
+        }
+
+        .post-card__category {
+            font-size: 14px;
+            color: #adadad
+        }
+
+        .post-card__category a {
+            color: inherit;
+            transition: .15s
+        }
+
+        .post-card__category a:hover {
+            color: #1a66ff
+        }
+
+        .post-card__date {
+            font-size: 14px;
+            color: #adadad
+        }
+
+        .post-card__name {
+            font-size: 20px;
+            line-height: 1.125;
+            font-weight: 500
+        }
+
+        .post-card__name a {
+            color: inherit;
+            transition: .15s
+        }
+
+        .post-card__name a:hover {
+            color: #1a66ff
+        }
+
+        .post-card__content {
+            font-size: 15px;
+            line-height: 24px
+        }
+
+        .post-card--layout--related .post-card__name {
+            width: 100%;
+            font-size: 17px;
+            margin-top: 16px;
+            line-height: 24px
+        }
+
+        .post-card--layout--related .post-card__name a {
+            transition: all .2s
+        }
+
+        .post-card--layout--related .post-card__name a:hover {
+            color: #1a66ff
+        }
+
+        .post-card--layout--related .post-card__date {
+            margin-top: 8px;
+            font-size: 15px
+        }
+
+        @media (max-width: 767px) {
+            .post-card--layout--related .post-card__name {
+                margin-top: 12px;
+                font-size: 15px;
+                line-height: 20px
+            }
+
+            .post-card--layout--related .post-card__date {
+                margin-top: 4px;
+                font-size: 14px
+            }
+        }
+
+        .post-card--layout--grid .post-card__info {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap
+        }
+
+        .post-card--layout--grid .post-card__image {
+            margin-bottom: 14px
+        }
+
+        .post-card--layout--grid .post-card__category {
+            display: none
+        }
+
+        .post-card--layout--grid .post-card__date {
+            -ms-flex-order: -1;
+            order: -1
+        }
+
+        .post-card--layout--grid .post-card__name {
+            width: 100%;
+            font-size: 18px;
+            margin-top: 4px;
+            line-height: 22px
+        }
+
+        .post-card--layout--grid .post-card__content {
+            width: 100%;
+            margin-top: 12px
+        }
+
+        .post-card--layout--grid .post-card__read-more {
+            width: 100%;
+            display: none
+        }
+
+        .post-card--layout--grid.post-card--size--lg .post-card__image {
+            margin-bottom: 0;
+            border-radius: 3px
+        }
+
+        .post-card--layout--grid.post-card--size--lg .post-card__info {
+            padding: 28px 36px 12px
+        }
+
+        .post-card--layout--grid.post-card--size--lg .post-card__category {
+            font-size: 15px;
+            -ms-flex-order: -2;
+            order: -2;
+            display: block
+        }
+
+        .post-card--layout--grid.post-card--size--lg .post-card__date {
+            padding-left: 22px;
+            font-size: 15px;
+            position: relative
+        }
+
+        .post-card--layout--grid.post-card--size--lg .post-card__date:before {
+            top: 9px;
+            left: 9px;
+            content: "";
+            display: block;
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 2px;
+            background: currentColor
+        }
+
+        .post-card--layout--grid.post-card--size--lg .post-card__name {
+            margin-top: 8px;
+            font-size: 24px;
+            line-height: 32px
+        }
+
+        .post-card--layout--grid.post-card--size--lg .post-card__content {
+            margin-top: 20px;
+            font-size: 16px
+        }
+
+        .post-card--layout--grid.post-card--size--lg .post-card__read-more {
+            display: block;
+            margin-top: 18px
+        }
+
+        @media (max-width: 767px) {
+            .post-card--layout--grid.post-card--size--lg .post-card__info {
+                padding: 20px 20px 12px
+            }
+
+            .post-card--layout--grid.post-card--size--lg .post-card__name {
+                font-size: 22px;
+                line-height: 26px
+            }
+
+            .post-card--layout--grid.post-card--size--lg .post-card__content {
+                margin-top: 12px
+            }
+        }
+
+        @media (max-width: 479px) {
+            .post-card--layout--grid.post-card--size--lg .post-card__info {
+                padding: 12px
+            }
+
+            .post-card--layout--grid.post-card--size--lg .post-card__name {
+                font-size: 20px;
+                line-height: 22px
+            }
+
+            .post-card--layout--grid.post-card--size--lg .post-card__content {
+                margin-top: 10px;
+                font-size: 15px
+            }
+        }
+
+        @media (max-width: 379px) {
+            .post-card--layout--grid.post-card--size--lg .post-card__name {
+                margin-top: 4px
+            }
+
+            .post-card--layout--grid.post-card--size--lg .post-card__info {
+                padding: 10px 0
+            }
+        }
+
+        .post-card--layout--list {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-direction: row;
+            flex-direction: row;
+            -ms-flex-align: start;
+            align-items: flex-start
+        }
+
+        .post-card--layout--list.post-card--size--nl .post-card__info {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+            padding-top: 10px
+        }
+
+        .post-card--layout--list.post-card--size--nl .post-card__image {
+            width: 350px;
+            -ms-flex-negative: 0;
+            flex-shrink: 0;
+            margin-right: 30px
+        }
+
+        .post-card--layout--list.post-card--size--nl .post-card__category {
+            font-size: 15px;
+            -ms-flex-order: -2;
+            order: -2;
+            display: block
+        }
+
+        .post-card--layout--list.post-card--size--nl .post-card__date {
+            -ms-flex-order: -1;
+            order: -1;
+            padding-left: 22px;
+            font-size: 15px;
+            position: relative
+        }
+
+        .post-card--layout--list.post-card--size--nl .post-card__date:before {
+            top: 9px;
+            left: 9px;
+            content: "";
+            display: block;
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 2px;
+            background: currentColor
+        }
+
+        .post-card--layout--list.post-card--size--nl .post-card__name {
+            margin-top: 6px;
+            font-size: 18px;
+            line-height: 24px
+        }
+
+        .post-card--layout--list.post-card--size--nl .post-card__content {
+            margin-top: 20px;
+            font-size: 16px
+        }
+
+        .post-card--layout--list.post-card--size--nl .post-card__read-more {
+            display: block;
+            margin-top: 14px
+        }
+    </style>
+    <div class="container">
+        <h1>Новости</h1>
+        <div class="posts-view__list posts-list posts-list--layout--list">
+            {% for single_news in news_list %}
+                <div class="card">
+                    <div class="post-card post-card--layout--list post-card--size--nl">
+                        <div class="post-card__image"><a href="{% url 'news_detail' single_news.id %}"><img
+                                src="{{ single_news.image.url }}"
+                                alt="{{ single_news.title }}"></a></div>
+                        <div class="post-card__info">
+                            <div class="post-card__name"><a
+                                    href="{% url 'news_detail' single_news.id %}">{{ single_news.title }}</a>
+                            </div>
+                            <div class="post-card__content">{{ single_news.content|safe|truncatechars:100 }}
+                            </div>
+                            <div class="post-card__read-more"><a
+                                    href="{% url 'news_detail' single_news.id %}"
+                                    class="btn btn-secondary btn-sm">Подробнее</a></div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
