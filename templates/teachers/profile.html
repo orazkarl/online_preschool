@@ -12,7 +12,7 @@
         <h3>Список моих групп:</h3>
         <ul>
             {% for group in teacher.teacher.subject.student_groups.all  %}
-                <li><a href="{% url 'teacher_student_group' group_id=group.id subject_id=teacher.teacher.subject.id %}">{{ group }}</a></li>
+                <li><a href="{% url 'teacher_studentgroup' group_id=group.id subject_id=teacher.teacher.subject.id %}">{{ group }}</a></li>
             {% endfor %}
         </ul>
     </div>

@@ -47,3 +47,5 @@ class HomeWorkView(generic.TemplateView):
 
 class GradesView(generic.TemplateView):
     template_name = 'students/grades.html'
+
+
