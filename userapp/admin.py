@@ -37,7 +37,7 @@ class TeacherUserAdmin(DjangoUserAdmin):
         (('Права доступа'), {
             'fields': ('is_active', 'is_staff', 'is_superuser'),
         }),
-        ('Дата и время', {'fields': ('last_login', 'date_joined', 'password1', 'password2')}),
+        ('Дата и время', {'fields': ('last_login', 'date_joined')}),
     )
 
     add_fieldsets = (
@@ -96,3 +96,16 @@ class StudentUserAdmin(DjangoUserAdmin):
         }),
     )
 
+
+
+from django.contrib.sites.models import Site
+from django.contrib.auth.models import Group
+from allauth.account.admin import EmailAddress
+from allauth.socialaccount.admin import SocialApp, SocialAccount, SocialToken
+
+admin.site.unregister(SocialApp)
+admin.site.unregister(SocialAccount)
+admin.site.unregister(SocialToken)
+admin.site.unregister(EmailAddress)
+admin.site.unregister(Group)
+admin.site.unregister(Site)

@@ -2,41 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from transliterate import slugify
 
-
-class Subject(models.Model):
-    name = models.CharField(max_length=250, verbose_name='Название предмета')
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = 'Предмет'
-        verbose_name_plural = 'Предметы'
-
-
-class StudentGroup(models.Model):
-    subjects = models.ManyToManyField(Subject, related_name='student_groups')
-    name = models.CharField(max_length=250, verbose_name='Название группы')
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        verbose_name = 'Группа'
-        verbose_name_plural = 'Группы'
-
-
-class Lesson(models.Model):
-    class Meta:
-        verbose_name = 'Урок'
-        verbose_name_plural = 'Уроки'
-
-
-class Grade(models.Model):
-    class Meta:
-        verbose_name = 'Оценка'
-        verbose_name_plural = 'Оценки'
-
+from teachers.models import StudentGroup, Subject
 
 DAYS_OF_WEEK = (
     ("0", 'Monday'),

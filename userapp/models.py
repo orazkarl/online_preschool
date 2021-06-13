@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
-from cabinetapp.models import StudentGroup, Subject
+from teachers.models import StudentGroup, Subject
 
 
 class User(AbstractUser):

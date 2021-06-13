@@ -1,23 +1,22 @@
-from django.shortcuts import render
 from django.views import generic
 
+from .models import Schedule, EventSchedule, TimeLesson
 
-from .models import Subject, StudentGroup, Schedule, EventSchedule, Lesson, Grade, TimeLesson
 
 class StudentProfileView(generic.TemplateView):
-    template_name = 'cabinetapp/students/profile.html'
+    template_name = 'students/profile.html'
 
     def get(self, request, *args, **kwargs):
         student = request.user
         self.extra_context = {
             'student': student,
         }
-
         return super().get(request, *args, **kwargs)
 
 
 class ScheduleView(generic.TemplateView):
-    template_name = 'cabinetapp/students/schedule.html'
+    template_name = 'students/schedule.html'
+
     def get(self, request, *args, **kwargs):
         student = request.user
         time_lessons = TimeLesson.objects.all()
@@ -28,8 +27,6 @@ class ScheduleView(generic.TemplateView):
         friday = EventSchedule.objects.filter(schedule__group_student=student.student.student_group, day='4')
         saturday = EventSchedule.objects.filter(schedule__group_student=student.student.student_group, day='5')
         sunday = EventSchedule.objects.filter(schedule__group_student=student.student.student_group, day='6')
-
-
         self.extra_context = {
             'student': student,
             'time_lessons': time_lessons,
@@ -40,18 +37,13 @@ class ScheduleView(generic.TemplateView):
             'friday': friday,
             'saturday': saturday,
             'sunday': sunday,
-
         }
-
         return super().get(request, *args, **kwargs)
 
+
 class HomeWorkView(generic.TemplateView):
-    template_name = 'cabinetapp/students/homework.html'
+    template_name = 'students/homework.html'
 
 
 class GradesView(generic.TemplateView):
-    template_name = 'cabinetapp/students/grades.html'
-
-
-# Script for added schedules
-
+    template_name = 'students/grades.html'

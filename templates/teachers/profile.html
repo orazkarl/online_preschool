@@ -1,0 +1,20 @@
+{% extends 'mainapp/base.html' %}
+{% block title %}Профиль Учителя {{ teacher.get_full_name }} {% endblock %}
+
+{% block content %}
+    <a href="{% url 'student_schedule' %}">Расписание</a>
+    <a href="{% url 'student_homework' %}">Дом задание</a>
+    <a href="{% url 'student_grades' %}">Оценки</a>
+    <div class="container">
+        <h1>{{ teacher.get_full_name }}</h1>
+        <h3>Дата рождение: {{ teacher.dob|date:"d.m.Y" }}</h3>
+        <h3>Урок: {{ teacher.teacher.subject }}</h3>
+        <h3>Список моих групп:</h3>
+        <ul>
+            {% for group in teacher.teacher.subject.student_groups.all  %}
+                <li><a href="{% url 'teacher_student_group' group_id=group.id subject_id=teacher.teacher.subject.id %}">{{ group }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+
+{% endblock %}

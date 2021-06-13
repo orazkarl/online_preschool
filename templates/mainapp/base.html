@@ -30,7 +30,7 @@
                     {% if request.user.student %}
                         <a class="btn btn-primary" href="{% url 'student_profile' %}">Профиль студента</a>
                     {% elif request.user.teacher %}
-                        <a class="btn btn-primary" href="#">Профиль учителя</a>
+                        <a class="btn btn-primary" href="{% url 'teacher_profile' %}">Профиль учителя</a>
                     {% endif %}
                     <a class="btn btn-danger" href="{% url 'account_logout' %}">Выйти</a>
                 {% else %}
