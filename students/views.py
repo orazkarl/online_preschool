@@ -1,5 +1,6 @@
 from django.views import generic
 
+from teachers.models import Lesson, Subject
 from .models import Schedule, EventSchedule, TimeLesson
 
 
@@ -41,11 +42,24 @@ class ScheduleView(generic.TemplateView):
         return super().get(request, *args, **kwargs)
 
 
+class SubjectListView(generic.ListView):
+    model = Subject
+    template_name = 'students/subject_list.html'
+
+    def get(self, request, *args, **kwargs):
+        print(request.user.student.student_group.subjects.all)
+        self.queryset = request.user.student.student_group.subjects.all()
+        return super().get(request, *args, **kwargs)
+
+
+
+
 class HomeWorkView(generic.TemplateView):
     template_name = 'students/homework.html'
+
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
 
 
 class GradesView(generic.TemplateView):
     template_name = 'students/grades.html'
-
-

@@ -31,7 +31,7 @@ class Lesson(models.Model):
                                       related_name='lessons')
     name = models.CharField(max_length=255, verbose_name='Название урока')
     description = models.TextField(verbose_name='Описание урока', null=True, blank=True)
-    file = models.FileField(upload_to='lessons/', null=True, blank=True, verbose_name='Файл')
+
     date = models.DateField()
 
     class Meta:
@@ -47,10 +47,9 @@ class Lesson(models.Model):
 
 
 class HomeWork(models.Model):
-    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, related_name='homeworks', verbose_name='Урок')
+    lesson = models.OneToOneField(Lesson, on_delete=models.CASCADE, related_name='homework', verbose_name='Урок')
     name = models.CharField(max_length=255, verbose_name='Название дом задание')
     description = models.TextField(verbose_name='Описание дом задание', null=True, blank=True)
-    file = models.FileField(upload_to='homeworks/', null=True, blank=True, verbose_name='Файл')
 
     class Meta:
         verbose_name = 'Дом. задание'
@@ -58,3 +57,6 @@ class HomeWork(models.Model):
 
     def __str__(self):
         return self.name
+
+    # def get_absolute_url(self):
+    #     return reverse('lesson_detail',kwargs={'pk': self.id})

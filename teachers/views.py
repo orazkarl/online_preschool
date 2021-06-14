@@ -1,7 +1,9 @@
+from django.urls import reverse
 from django.views import generic
 
-from .models import Subject, StudentGroup, Lesson
-from .forms import LessonForm
+from .models import Subject, StudentGroup, Lesson, HomeWork
+from .forms import LessonForm, HomeWorkForm
+
 
 class TeacherProfileView(generic.TemplateView):
     template_name = 'teachers/profile.html'
@@ -45,6 +47,37 @@ class LessonCreateView(generic.CreateView):
         return super().get(request, *args, **kwargs)
 
 
-class LessonDetailView(generic.DetailView):
+class LessonDetailView(generic.DetailView, generic.FormView):
     model = Lesson
     template_name = 'teachers/lesson_detail.html'
+    form_class = HomeWorkForm
+
+    def get_success_url(self):
+        lesson = Lesson.objects.get(id=self.get_object().id)
+        return lesson.get_absolute_url()
+
+    def form_valid(self, form):
+        form.instance.lesson = self.get_object()
+        form.save()
+        return super().form_valid(form)
+
+    def get(self, request, *args, **kwargs):
+        try:
+            form = HomeWorkForm(instance=self.get_object().homework)
+        except:
+            print('error')
+        else:
+            self.extra_context = {
+                'form': form
+            }
+        return super().get(request, *args, **kwargs)
+
+
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+

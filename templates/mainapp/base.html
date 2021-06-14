@@ -24,14 +24,15 @@
 
             <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
                 <a class="me-3 py-2 text-dark text-decoration-none" href="{% url 'news_list' %}">Новости</a>
-                <a class="me-3 py-2 text-dark text-decoration-none" href="#">Enterprise</a>
-                <a class="me-3 py-2 text-dark text-decoration-none" href="#">Support</a>
+
                 {% if request.user.is_authenticated %}
-                    {% if request.user.student %}
-                        <a class="btn btn-primary" href="{% url 'student_profile' %}">Профиль студента</a>
-                    {% elif request.user.teacher %}
-                        <a class="btn btn-primary" href="{% url 'teacher_profile' %}">Профиль учителя</a>
-                    {% endif %}
+                    <a class="btn btn-primary" href="{% url 'student_profile' %}">Профиль студента</a>
+                    <a class="btn btn-primary" href="{% url 'teacher_profile' %}">Профиль учителя</a>
+                    {#                    {% if request.user.student %}#}
+                    {#                        <a class="btn btn-primary" href="{% url 'student_profile' %}">Профиль студента</a>#}
+                    {#                    {% elif request.user.teacher %}#}
+                    {#                        <a class="btn btn-primary" href="{% url 'teacher_profile' %}">Профиль учителя</a>#}
+                    {#                    {% endif %}#}
                     <a class="btn btn-danger" href="{% url 'account_logout' %}">Выйти</a>
                 {% else %}
                     <a class="btn btn-primary" href="{% url 'account_login' %}">Войти</a>
