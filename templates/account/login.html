@@ -1,26 +1,21 @@
 {% extends "account/base.html" %}
-
 {% load i18n %}
-{% load account socialaccount %}
 
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
 
 {% block content %}
-
-<h1>{% trans "Sign In" %}</h1>
-
-{% get_providers as socialaccount_providers %}
-
-
-
-<form class="login" method="POST" action="{% url 'account_login' %}">
-  {% csrf_token %}
-  {{ form.as_p }}
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-  {% endif %}
-  <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
-  <button class="primaryAction" type="submit">{% trans "Sign In" %}</button>
-</form>
-
+    <main class="form-signin">
+        <form method="POST" action="{% url 'account_login' %}">
+            {% csrf_token %}
+            <h1 class="h3 mb-3 fw-normal">{% trans "Sign In" %}</h1>
+            {% for form_item in form %}
+                <div class="form-floating">
+                    {{ form_item }}
+                    <label for="floatingInput">{{ form_item.label }}</label>
+                </div>
+            {% endfor %}
+            <button class="w-100 btn btn-lg btn-primary" type="submit">{% trans "Sign In" %}</button>
+            <p class="mt-3 mb-3 text-muted"><a href="{% url 'account_reset_password' %}" class="">Забыли пароль?</a></p>
+        </form>
+    </main>
 {% endblock %}

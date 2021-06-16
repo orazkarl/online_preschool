@@ -157,3 +157,14 @@ ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
 ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 86400  # 1 day in seconds
 ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login'
 LOGIN_REDIRECT_URL = '/'
+
+ACCOUNT_FORMS = {
+    'login': 'userapp.forms.CustomLoginForm',
+    'signup': 'userapp.forms.CustomSignupForm',
+    'add_email': 'allauth.account.forms.AddEmailForm',
+    'change_password': 'userapp.forms.CustomChangePasswordForm',
+    'set_password': 'allauth.account.forms.SetPasswordForm',
+    'reset_password': 'userapp.forms.CustomResetPasswordForm',
+    'reset_password_from_key': 'user_auth.forms.CustomResetPasswordKeyForm',
+    'disconnect': 'allauth.socialaccount.forms.DisconnectForm',
+}
