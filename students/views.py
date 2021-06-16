@@ -52,6 +52,9 @@ class SubjectListView(generic.ListView):
         return super().get(request, *args, **kwargs)
 
 
+class SubjectDetailView(generic.DetailView):
+    model = Subject
+    template_name = 'students/subject_detail.html'
 
 
 class HomeWorkView(generic.TemplateView):

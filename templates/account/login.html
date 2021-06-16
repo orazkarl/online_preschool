@@ -9,10 +9,12 @@
             {% csrf_token %}
             <h1 class="h3 mb-3 fw-normal">{% trans "Sign In" %}</h1>
             {% for form_item in form %}
+                {% if form_item.name != 'remember' %}
                 <div class="form-floating">
                     {{ form_item }}
                     <label for="floatingInput">{{ form_item.label }}</label>
                 </div>
+                {% endif %}
             {% endfor %}
             <button class="w-100 btn btn-lg btn-primary" type="submit">{% trans "Sign In" %}</button>
             <p class="mt-3 mb-3 text-muted"><a href="{% url 'account_reset_password' %}" class="">Забыли пароль?</a></p>

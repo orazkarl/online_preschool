@@ -13,7 +13,7 @@
                 <div class="card-header">
                     <h3>Название предмета: {{ subject.name }} </h3>
                     <h3>Препод: {{ subject.teacher }}</h3>
-                    <a href="" class="btn btn-primary">Посмотреть</a>
+                    <a href="{% url 'student_subject_detail' subject.id %} " class="btn btn-primary">Посмотреть</a>
                 </div>
             </div>
         {% endfor %}

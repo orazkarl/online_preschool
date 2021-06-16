@@ -1,10 +1,14 @@
-from django.urls import reverse
 from django.views import generic
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import user_passes_test
 
 from .models import Subject, StudentGroup, Lesson, HomeWork
 from .forms import LessonForm, HomeWorkForm
+from .utils import is_teacher
 
 
+@method_decorator([login_required, user_passes_test(is_teacher, login_url='/')], name='dispatch')
 class TeacherProfileView(generic.TemplateView):
     template_name = 'teachers/profile.html'
 

@@ -1,0 +1,30 @@
+{% extends 'mainapp/base.html' %}
+{% block title %}Профиль {{ student.get_full_name }} {% endblock %}
+
+{% block content %}
+    <a href="{% url 'student_schedule' %}">Расписание</a>
+    <a href="{% url 'student_homework' %}">Дом задание</a>
+    <a href="{% url 'student_subjects' %}">Предметы</a>
+    <a href="{% url 'student_grades' %}">Оценки</a>
+    <div class="container">
+        <h1>{{ subject.name }}</h1>
+        <div class="list-group">
+        {% for lesson in subject.lessons.all %}
+            <div class="card">
+                <div class="card-header">
+                    <h3>Тема урока: {{ lesson.name }} </h3>
+                </div>
+                <div class="card-body">
+                    <h4>Дата: {{ lesson.date }}</h4>
+                    <h3>Описание</h3>
+                    <p>{{ lesson.description }}</p>
+                    <div>
+                    </div>
+                    <a href="" class="btn btn-primary">Посмотреть</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    </div>
+
+{% endblock %}

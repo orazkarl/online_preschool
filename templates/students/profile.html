@@ -4,6 +4,7 @@
 {% block content %}
     <a href="{% url 'student_schedule' %}">Расписание</a>
     <a href="{% url 'student_homework' %}">Дом задание</a>
+    <a href="{% url 'student_subjects' %}">Предметы</a>
     <a href="{% url 'student_grades' %}">Оценки</a>
     <div class="container">
         <h1>{{ student.get_full_name }}</h1>
