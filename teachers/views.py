@@ -1,10 +1,11 @@
+from django.shortcuts import redirect
+from django.urls import reverse
 from django.views import generic
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
 
 from .models import Subject, StudentGroup, Lesson, HomeWork
-from .forms import LessonForm, HomeWorkForm
 from .utils import is_teacher
 
 
@@ -19,7 +20,17 @@ class TeacherProfileView(generic.TemplateView):
         }
         return super().get(request, *args, **kwargs)
 
+@method_decorator([login_required, user_passes_test(is_teacher, login_url='/')], name='dispatch')
+class StudentGroupListView(generic.ListView):
+    model = StudentGroup
+    template_name = 'teachers/studentgroup_list.html'
 
+    def get(self, request, *args, **kwargs):
+        self.queryset = StudentGroup.objects.filter(subjects__teacher=request.user.teacher)
+        return super().get(request, *args, **kwargs)
+
+
+@method_decorator([login_required, user_passes_test(is_teacher, login_url='/')], name='dispatch')
 class SubjectDetailView(generic.DetailView):
     model = Subject
     template_name = 'teachers/subject_detail.html'
@@ -36,10 +47,9 @@ class SubjectDetailView(generic.DetailView):
         return super().get_context_data(**kwargs)
 
 
-class LessonCreateView(generic.CreateView):
-    model = Lesson
+@method_decorator([login_required, user_passes_test(is_teacher, login_url='/')], name='dispatch')
+class LessonCreateView(generic.TemplateView):
     template_name = 'teachers/lesson_create.html'
-    form_class = LessonForm
 
     def get(self, request, *args, **kwargs):
         subject = request.user.teacher.subject
@@ -50,38 +60,14 @@ class LessonCreateView(generic.CreateView):
         }
         return super().get(request, *args, **kwargs)
 
-
-class LessonDetailView(generic.DetailView, generic.FormView):
-    model = Lesson
-    template_name = 'teachers/lesson_detail.html'
-    form_class = HomeWorkForm
-
-    def get_success_url(self):
-        lesson = Lesson.objects.get(id=self.get_object().id)
-        return lesson.get_absolute_url()
-
-    def form_valid(self, form):
-        form.instance.lesson = self.get_object()
-        form.save()
-        return super().form_valid(form)
-
-    def get(self, request, *args, **kwargs):
-        try:
-            form = HomeWorkForm(instance=self.get_object().homework)
-        except:
-            print('error')
-        else:
-            self.extra_context = {
-                'form': form
-            }
-        return super().get(request, *args, **kwargs)
-
-
     def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        form = self.get_form()
-        if form.is_valid():
-            return self.form_valid(form)
-        else:
-            return self.form_invalid(form)
-
+        studentgroup = request.POST['studentgroup']
+        subject = request.POST['subject']
+        name = request.POST['name']
+        description = request.POST['description']
+        date = request.POST['date']
+        homework_name = request.POST['homework_name']
+        homework_description = request.POST['homework_description']
+        lesson = Lesson.objects.create(subject_id=subject, student_group_id=studentgroup, name=name, description=description, date=date)
+        HomeWork.objects.create(lesson=lesson, name=homework_name, description=homework_description)
+        return redirect(reverse('teacher_studentgroupdetail', kwargs={'group_id': int(studentgroup), 'subject_id': int(subject)}))

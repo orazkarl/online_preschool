@@ -1,20 +1,72 @@
 {% extends 'teachers/base.html' %}
-{% block title %}Профиль Учителя {{ teacher.get_full_name }} {% endblock %}
+{% block title %}Профиль Учителя  - {{ teacher.get_full_name }} {% endblock %}
 
 {% block content %}
-    <a href="{% url 'student_schedule' %}">Расписание</a>
-    <a href="{% url 'student_homework' %}">Дом задание</a>
-    <a href="{% url 'student_grades' %}">Оценки</a>
-    <div class="container">
-        <h1>{{ teacher.get_full_name }}</h1>
-        <h3>Дата рождение: {{ teacher.dob|date:"d.m.Y" }}</h3>
-        <h3>Урок: {{ teacher.teacher.subject }}</h3>
-        <h3>Список моих групп:</h3>
-        <ul>
-            {% for group in teacher.teacher.subject.student_groups.all  %}
-                <li><a href="{% url 'teacher_studentgroup' group_id=group.id subject_id=teacher.teacher.subject.id %}">{{ group }}</a></li>
-            {% endfor %}
-        </ul>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+        <h1 class="h2">Профиль</h1>
+        {#        <div class="btn-toolbar mb-2 mb-md-0">#}
+        {#            <div class="btn-group me-2">#}
+        {#                <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>#}
+        {#                <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>#}
+        {#            </div>#}
+        {#            <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">#}
+        {#                <span data-feather="calendar"></span>#}
+        {#                This week#}
+        {#            </button>#}
+        {#        </div>#}
     </div>
+
+
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body p-0 table-border-style">
+                    <div class="table-responsive" style="font-size: 18px">
+                        <table class="table table-hover">
+                            <tbody>
+                                <th scope="row">Логин</th>
+                                <td>{{ request.user.username }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Имя</th>
+                                <td>{{ request.user.first_name }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Фамилия</th>
+                                <td>{{ request.user.last_name }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Телефон</th>
+                                <td>{{ request.user.phone }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Почта</th>
+                                <td><a href="mailto:{{ request.user.email }}"
+                                       style="color: #8a04b1">{{ request.user.email }}</a></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Дата рождедия</th>
+                                <td>{{ request.user.dob }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Предмет</th>
+                                <td>{{ request.user.teacher.subject }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="{% url 'account_change_password' %}" class="btn btn-success">Изменить пароль</a>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 
 {% endblock %}

@@ -1,27 +1,43 @@
-{% extends 'mainapp/base.html' %}
-{% block title %}Группа {{ studentgroup.name }} {% endblock %}
+{% extends 'teachers/base.html' %}
+{% block title %}{{ studentgroup.name }} {% endblock %}
 
 {% block content %}
-    <h1>Группа "{{ studentgroup.name }}"</h1>
-    <h1>Предмет "{{ subject.name }}"</h1>
-    <a href="{% url 'lesson_create' group_id=studentgroup.id %} " class="btn btn-primary">Добавить урок</a>
-    <hr>
-    <div class="list-group">
-        {% for lesson in lessons %}
-            <div class="card">
-                <div class="card-header">
-                    <h3>Тема урока: {{ lesson.name }} </h3>
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap pt-3 ">
+        <h1 class="h2">{{ studentgroup.name }}</h1>
 
-                </div>
-                <div class="card-body">
-                    <h4>Дата: {{ lesson.date }}</h4>
-                    <h3>Описание</h3>
-                    <p>{{ lesson.description }}</p>
-                    <div>
-                    </div>
-                    <a href="{% url 'lesson_detail' lesson.id %}" class="btn btn-primary">Посмотреть</a>
-                </div>
+        <div class="">
+            <div class="btn-group me-2">
+                <a href="{% url 'lesson_create' studentgroup.id %}" class="btn btn-primary">Добавить урок</a>
             </div>
-        {% endfor %}
+        </div>
     </div>
+
+    <div class="row">
+        <h3>Предмет: "{{ subject.name }}"</h3>
+        <div class="col-md-12">
+
+            <div class="list-group">
+                {% for lesson in lessons %}
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>{{ lesson.name }}</h3>
+                            <p>{{ lesson.date }}</p>
+                        </div>
+                        <div class="card-body">
+                            <p>{{ lesson.description }}</p>
+                            <hr>
+                            <h4>Дом задание: "{{ lesson.homework.name }}"</h4>
+                            <p>{{ lesson.homework.description }}</p>
+                        </div>
+                    </div>
+                    <br>
+                {% endfor %}
+
+
+            </div>
+
+        </div>
+    </div>
+
+
 {% endblock %}
