@@ -7,6 +7,8 @@ from teachers.models import StudentGroup, Subject
 class User(AbstractUser):
     phone = models.CharField(max_length=12, blank=True, verbose_name='Телефон номер')
     dob = models.DateField(null=True, blank=True,  verbose_name='Дата рождение')
+    avatar = models.ImageField(upload_to='avatars/', null=True)
+
 
 class Teacher(models.Model):
     subject = models.OneToOneField(Subject, on_delete=models.SET_NULL, null=True, related_name='teacher',

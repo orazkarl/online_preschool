@@ -58,5 +58,16 @@ class HomeWork(models.Model):
     def __str__(self):
         return self.name
 
-    # def get_absolute_url(self):
-    #     return reverse('lesson_detail',kwargs={'pk': self.id})
+
+class HomeWorkStudent(models.Model):
+    from userapp.models import Student
+    homework = models.ForeignKey(HomeWork, on_delete=models.CASCADE, related_name='homework_students', verbose_name='ДЗ')
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='homework_students', verbose_name='Студент')
+    file = models.FileField(upload_to='homework_students')
+
+    def __str__(self):
+        return f"{self.homework.name} - {self.student.get_full_name()}"
+
+    class Meta:
+        verbose_name = 'ДЗ Студента'
+        verbose_name_plural = 'ДЗ Студента'

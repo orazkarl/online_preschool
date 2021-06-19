@@ -1,11 +1,9 @@
 {% extends 'mainapp/base.html' %}
+{% load students_tags %}
+
 {% block title %}Профиль {{ student.get_full_name }} {% endblock %}
 
 {% block content %}
-    <a href="{% url 'student_schedule' %}">Расписание</a>
-    <a href="{% url 'student_homework' %}">Дом задание</a>
-    <a href="{% url 'student_subjects' %}">Предметы</a>
-    <a href="{% url 'student_grades' %}">Оценки</a>
     <div class="container">
         <h1>{{ subject.name }}</h1>
         <div class="list-group">
@@ -13,14 +11,16 @@
             <div class="card">
                 <div class="card-header">
                     <h3>Тема урока: {{ lesson.name }} </h3>
+                    <p>{{ lesson.date }}</p>
                 </div>
                 <div class="card-body">
-                    <h4>Дата: {{ lesson.date }}</h4>
-                    <h3>Описание</h3>
                     <p>{{ lesson.description }}</p>
-                    <div>
-                    </div>
-                    <a href="" class="btn btn-primary">Посмотреть</a>
+                    <hr>
+                    <h3>Дом задание: {{ lesson.homework.name }}</h3>
+                    <p>{{ lesson.homework.description }}</p>
+                    {% if not request.user.student|is_send_homework:lesson.homework %}
+                        <a href="{% url 'student_homework' lesson.homework.id %}" class="btn btn-primary">Отправить дз</a>
+                    {% endif %}
                 </div>
             </div>
         {% endfor %}

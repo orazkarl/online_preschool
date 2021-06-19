@@ -1,17 +1,12 @@
-{% extends 'mainapp/base.html' %}
+{% extends 'students/base.html' %}
 {% block title %}Профиль {{ student.get_full_name }} {% endblock %}
 
 {% block content %}
-    <a href="{% url 'student_schedule' %}">Расписание</a>
-    <a href="{% url 'student_homework' %}">Дом задание</a>
-    <a href="{% url 'student_subjects' %}">Предметы</a>
-    <a href="{% url 'student_grades' %}">Оценки</a>
     <div class="container">
+        <img src="" alt="">
         <h1>{{ student.get_full_name }}</h1>
-        <h3>{{ student.dob|date:"d.m.Y" }}</h3>
-        <h3>{{ student.student.student_group }}</h3>
-
-        <h1>Статус:</h1>
+        <p>{{ student.dob }}</p>
+        <p>{{ student.student.student_group }}</p>
+        <a href="" class="btn btn-secondary">Посмотреть оценку</a>
     </div>
-
 {% endblock %}
