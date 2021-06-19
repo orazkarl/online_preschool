@@ -48,7 +48,7 @@ class ScheduleView(generic.TemplateView):
         }
         return super().get(request, *args, **kwargs)
 
-
+@method_decorator([login_required, user_passes_test(is_student, login_url='/')], name='dispatch')
 class SubjectListView(generic.ListView):
     model = Subject
     template_name = 'students/subject_list.html'
@@ -58,6 +58,7 @@ class SubjectListView(generic.ListView):
         return super().get(request, *args, **kwargs)
 
 
+@method_decorator([login_required, user_passes_test(is_student, login_url='/')], name='dispatch')
 class SubjectDetailView(generic.DetailView):
     model = Subject
     template_name = 'students/subject_detail.html'
@@ -66,6 +67,7 @@ class SubjectDetailView(generic.DetailView):
         return super().get(request, *args, **kwargs)
 
 
+@method_decorator([login_required, user_passes_test(is_student, login_url='/')], name='dispatch')
 class SendHomeWorkView(generic.TemplateView):
     template_name = 'students/homework.html'
 
@@ -83,6 +85,7 @@ class SendHomeWorkView(generic.TemplateView):
         HomeWorkStudent.objects.create(homework=homework, student=student, file=file)
         subject = homework.lesson.subject
         return redirect(reverse('student_subject_detail', kwargs={'pk': subject.id}))
+
 
 class GradesView(generic.TemplateView):
     template_name = 'students/grades.html'

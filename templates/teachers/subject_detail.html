@@ -29,7 +29,11 @@
                             <h4>Дом задание: "{{ lesson.homework.name }}"</h4>
                             <p>{{ lesson.homework.description }}</p>
                         </div>
+                    <div class="card-header">
+                        <a href="{% url 'teacher_studentgroupgrade' lesson.id %}" class="btn btn-primary">Поставить оценку</a>
                     </div>
+                    </div>
+
                     <br>
                 {% endfor %}
 

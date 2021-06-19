@@ -60,9 +60,8 @@ class HomeWork(models.Model):
 
 
 class HomeWorkStudent(models.Model):
-    from userapp.models import Student
     homework = models.ForeignKey(HomeWork, on_delete=models.CASCADE, related_name='homework_students', verbose_name='ДЗ')
-    student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name='homework_students', verbose_name='Студент')
+    student = models.ForeignKey('userapp.Student', on_delete=models.CASCADE, related_name='homework_students', verbose_name='Студент')
     file = models.FileField(upload_to='homework_students')
 
     def __str__(self):
@@ -71,3 +70,18 @@ class HomeWorkStudent(models.Model):
     class Meta:
         verbose_name = 'ДЗ Студента'
         verbose_name_plural = 'ДЗ Студента'
+
+
+class Grade(models.Model):
+    lesson = models.OneToOneField(Lesson, on_delete=models.CASCADE, related_name='grades', verbose_name='Урок')
+    student = models.ForeignKey('userapp.Student', on_delete=models.CASCADE, related_name='grades',verbose_name='Студент')
+    is_lesson = models.BooleanField(default=False, verbose_name='Успеваемость')
+    is_homework = models.BooleanField(default=False, verbose_name='ДЗ')
+    is_behavior = models.BooleanField(default=False, verbose_name='Воспитание')
+
+    def __str__(self):
+        return f"{self.lesson.name} - {self.student.get_full_name()}"
+
+    class Meta:
+        verbose_name = 'Оценка'
+        verbose_name_plural = 'Оценки'

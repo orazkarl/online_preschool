@@ -71,3 +71,12 @@ class LessonCreateView(generic.TemplateView):
         lesson = Lesson.objects.create(subject_id=subject, student_group_id=studentgroup, name=name, description=description, date=date)
         HomeWork.objects.create(lesson=lesson, name=homework_name, description=homework_description)
         return redirect(reverse('teacher_studentgroupdetail', kwargs={'group_id': int(studentgroup), 'subject_id': int(subject)}))
+
+
+class StudentGroupGradeView(generic.TemplateView):
+    template_name = 'teachers/studentgroup_grade.html'
+
+    def get(self, request, *args, **kwargs):
+        lesson = Lesson.objects.get(id=self.kwargs.get('lesson_id'))
+        return super().get(request, *args, **kwargs)
+
