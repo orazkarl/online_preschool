@@ -85,3 +85,35 @@ class Grade(models.Model):
     class Meta:
         verbose_name = 'Оценка'
         verbose_name_plural = 'Оценки'
+
+
+MONTH_CHOICES = (
+    ('1', 'Январь'),
+    ('2', 'Февраль'),
+    ('3', 'Март'),
+    ('4', 'Апрель'),
+    ('5', 'Май'),
+    ('6', 'Июнь'),
+    ('7', 'Июль'),
+    ('8', 'Август'),
+    ('9', 'Сентябрь'),
+    ('10', 'Октябрь'),
+    ('11', 'Ноябрь'),
+    ('12', 'Декабрь'),
+)
+
+
+class MonthlyGrade(models.Model):
+    month = models.CharField(max_length=255, choices=MONTH_CHOICES, verbose_name='Месяц')
+    subject = models.ForeignKey(Subject, on_delete=models.SET_NULL, null=True, blank=True, related_name='monthly_grades')
+    student = models.ForeignKey('userapp.Student', on_delete=models.CASCADE, related_name='monthly_grades',
+                                verbose_name='Студент')
+    grade = models.PositiveIntegerField(verbose_name='Оценка')
+
+    def __str__(self):
+        return f"{self.student.get_full_name()} - {self.subject.name}"
+
+    class Meta:
+        verbose_name = 'Месячная оценка'
+        verbose_name_plural = 'Месячная оценка'
+

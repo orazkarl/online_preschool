@@ -5,7 +5,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
 
-from .models import Subject, StudentGroup, Lesson, HomeWork
+from .models import Subject, StudentGroup, Lesson, HomeWork, Grade
 from .utils import is_teacher
 
 
@@ -78,5 +78,29 @@ class StudentGroupGradeView(generic.TemplateView):
 
     def get(self, request, *args, **kwargs):
         lesson = Lesson.objects.get(id=self.kwargs.get('lesson_id'))
+        studentgroup = lesson.student_group
+        self.extra_context = {
+            'lesson':lesson,
+            'studentgroup': studentgroup,
+        }
         return super().get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        lesson = Lesson.objects.get(id=self.kwargs.get('lesson_id'))
+        studentgroup = lesson.student_group
+        subject = lesson.subject
+
+        for student in studentgroup.students.all():
+            is_lesson = False
+            is_homework = False
+            is_behavior = False
+            if str(student.id) + '__is_lesson' in request.POST:
+                is_lesson = True
+            if str(student.id) + '__is_homework' in request.POST:
+                is_homework = True
+            if str(student.id) + '__is_behavior' in request.POST:
+                is_behavior = True
+            Grade.objects.create(lesson=lesson, student=student, is_lesson=is_lesson, is_homework=is_homework, is_behavior=is_behavior)
+        return redirect(
+            reverse('teacher_studentgroupdetail', kwargs={'group_id': studentgroup.id, 'subject_id': subject.id}))
 
