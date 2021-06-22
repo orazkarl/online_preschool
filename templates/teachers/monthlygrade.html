@@ -1,0 +1,72 @@
+{% extends 'teachers/base.html' %}
+{% block title %}Поставить оценку для группы "{{ studentgroup.name }}" {% endblock %}
+
+{% block content %}
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap pt-3 ">
+        <h1 class="h2">Поставить оценку для группы "{{ studentgroup.name }}"</h1>
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Январь</th>
+                            <th>Раз</th>
+                            <th>Февраль</th>
+                            <th>Раз</th>
+                            <th>Апрель</th>
+                            <th>Раз</th>
+                            <th>Май</th>
+                            <th>Раз</th>
+                            <th>Июнь</th>
+                            <th>Раз</th>
+                            <th>Июль</th>
+                            <th>Раз</th>
+                            <th>Август</th>
+                            <th>Раз</th>
+                            <th>Сентябрь</th>
+                            <th>Раз</th>
+                            <th>Ноябрь</th>
+                            <th>Раз</th>
+                            <th>Декабрь</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <tr>
+                        <td>#</td>
+                        <td>Январь</td>
+                        <td>Разница</td>
+                        <td>Февраль</td>
+                        <td>Разница</td>
+                        <td>Апрель</td>
+                        <td>Разница</td>
+                        <td>Май</td>
+                        <td>Разница</td>
+                        <td>Июнь</td>
+                        <td>Разница</td>
+                        <td>Июль</td>
+                        <td>Разница</td>
+                        <td>Август</td>
+                        <td>Разница</td>
+                        <td>Сентябрь</td>
+                        <td>Разница</td>
+                        <td>Ноябрь</td>
+                        <td>Разница</td>
+                        <td>Декабрь</td>
+                    </tr>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+
+{% endblock %}

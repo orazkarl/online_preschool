@@ -5,7 +5,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
 
-from .models import Subject, StudentGroup, Lesson, HomeWork, Grade
+from .models import Subject, StudentGroup, Lesson, HomeWork, Grade, MonthlyGrade
 from .utils import is_teacher
 
 
@@ -72,7 +72,7 @@ class LessonCreateView(generic.TemplateView):
         HomeWork.objects.create(lesson=lesson, name=homework_name, description=homework_description)
         return redirect(reverse('teacher_studentgroupdetail', kwargs={'group_id': int(studentgroup), 'subject_id': int(subject)}))
 
-
+@method_decorator([login_required, user_passes_test(is_teacher, login_url='/')], name='dispatch')
 class StudentGroupGradeView(generic.TemplateView):
     template_name = 'teachers/studentgroup_grade.html'
 
@@ -104,3 +104,6 @@ class StudentGroupGradeView(generic.TemplateView):
         return redirect(
             reverse('teacher_studentgroupdetail', kwargs={'group_id': studentgroup.id, 'subject_id': subject.id}))
 
+
+class MonthlyGradeView(generic.TemplateView):
+    template_name = 'teachers/monthlygrade.html'

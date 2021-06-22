@@ -1,4 +1,4 @@
-{% extends 'mainapp/base.html' %}
+{% extends 'students/base.html' %}
 {% load students_tags %}
 
 {% block title %}Профиль {{ student.get_full_name }} {% endblock %}
@@ -18,11 +18,13 @@
                     <hr>
                     <h3>Дом задание: {{ lesson.homework.name }}</h3>
                     <p>{{ lesson.homework.description }}</p>
-                    {% if not request.user.student|is_send_homework:lesson.homework %}
-                        <a href="{% url 'student_homework' lesson.homework.id %}" class="btn btn-primary">Отправить дз</a>
-                    {% endif %}
+{#                    {% if not request.user.student|is_send_homework:lesson.homework %}#}
+{#                        <a href="{% url 'student_homework' lesson.homework.id %}" class="btn btn-primary">Отправить дз</a>#}
+{#                    {% endif %}#}
+                    <a href="" class="btn btn-primary">Контрольная</a>
                 </div>
             </div>
+            <br>
         {% endfor %}
     </div>
     </div>
