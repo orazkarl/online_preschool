@@ -1,5 +1,11 @@
+@font-face {
+    font-family: cooper;
+    src: url(/static/fonts/Asylbekm21cooper.Kz.ttf);
+}
+
 html, body {
     background-color: #ECEFF8;
+    font-family: cooper;
 }
 
 .btn-orange {
@@ -16,11 +22,8 @@ html, body {
 }
 
 .student-img {
-    width: 227px;
-    height: 227px;
     overflow: hidden;
     border-radius: 50%;
-    position: relative;
 }
 
 .student-name {
@@ -29,4 +32,69 @@ html, body {
 
 .student-info {
     color: #FF6A00;
+}
+
+.profile-grade-list {
+    width: 100%;
+    display: flex;
+    margin-right: auto;
+    margin-left: auto;
+    overflow-x: scroll;
+}
+
+.profile-grade-item {
+    margin: 10px;
+    width: 271px;
+    text-align: center;
+}
+
+.profile-grade-circle {
+    width: 271px;
+    height: 271px;
+    border-radius: 50%;
+    border: 15px solid #F6931B;
+    padding: 10px;
+}
+
+.profile-grade-star {
+    margin-left: auto;
+    margin-right: auto;
+    height: 120px;
+    width: 120px;
+    overflow: hidden;
+}
+
+.profile-grade-grade-text {
+    font-size: 75px;
+    color: #FF6A00;
+}
+
+.profile-grade-subject {
+    color: #317EEF;
+}
+
+.text-orange {
+    color: #FF6A00;
+}
+
+.text-blue {
+    color: #317EEF;
+}
+
+.student-status {
+    font-size: 47px;
+}
+.student-status-value {
+    font-size: 57px;
+}
+.student-grade {
+    font-size: 47px;
+}
+.student-grade-value {
+    font-size: 90px;
+}
+
+.monthly-grades-student-img {
+    padding: 35px;
+    padding-left: 75px;
 }

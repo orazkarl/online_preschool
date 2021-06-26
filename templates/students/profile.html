@@ -6,7 +6,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=782px, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="Orazali Karl">
     <meta name="generator" content="Hugo 0.83.1">
@@ -27,28 +27,130 @@
 
         </div>
         <div style="margin-left: auto; margin-right: auto;">
-                <a class="btn btn-orange" href="{% url 'news_list' %}">Новости</a>
-                <a class="btn btn-orange" href="{% url 'student_schedule' request.user.student.student_group.id %}">Расписание</a>
-                <a class="btn btn-orange" href="{% url 'student_subjects' %}">Предметы</a>
-                <a class="btn btn-orange" href="{% url 'student_subjects' %}">Настройки</a>
-                <a class="btn btn-danger " href="{% url 'account_logout' %}">Выйти</a>
-            </div>
+            <a class="btn btn-orange" href="{% url 'news_list' %}">Новости</a>
+            <a class="btn btn-orange" href="{% url 'student_schedule' request.user.student.student_group.id %}">Расписание</a>
+            <a class="btn btn-orange" href="{% url 'student_subjects' %}">Предметы</a>
+            <a class="btn btn-orange" href="{% url 'student_subjects' %}">Настройки</a>
+            <a class="btn btn-danger " href="{% url 'account_logout' %}">Выйти</a>
+        </div>
     </header>
     <br>
     <main>
-        <div class="card bg-white" style="padding: 15px; flex-direction: row">
-            <div style="flex: 1;">
-                <div class="student-img" >
-                <img src="{{ request.user.avatar.url }}" width="227px" height="227px">
-            </div>
-            </div>
-            <div style="flex: 1;">
-                <h1 class="student-name">{{ student.get_full_name }}</h1>
-                <h3 class="student-info">{{ student.dob }}</h3>
-                <h3 class="student-info">{{ student.student.student_group.name }}</h3>
+        <div class="card bg-white" style="padding: 25px;">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="student-img">
+                        <img src="{{ request.user.avatar.url }}" class="img-fluid">
+                    </div>
+                </div>
+                <div class="col-md-10 col-sm-12">
+                    <h1 class="student-name">{{ student.get_full_name }}</h1>
+                    <br>
+                    <h3 class="student-info">{{ student.dob }}</h3>
+                    <h3 class="student-info">{{ student.student.student_group.name }}</h3>
+                </div>
             </div>
         </div>
+        <br>
+        <div class="card bg-white" style="padding: 25px;">
+            <div class="profile-grade-list">
+                <div class="profile-grade-item">
+                    <div class="profile-grade-circle">
+                        <div class="profile-grade-star">
+                            <img src="{% static 'img/star.png' %}" class="img-fluid">
+                        </div>
+                        <div class="profile-grade-grade">
+                            <h1 class="profile-grade-grade-text">367</h1>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="profile-grade-subject">
+                        <h5>Математика</h5>
+                    </div>
+                </div>
+                <div class="profile-grade-item">
+                    <div class="profile-grade-circle">
+                        <div class="profile-grade-star">
+                            <img src="{% static 'img/star.png' %}" class="img-fluid">
+                        </div>
+                        <div class="profile-grade-grade">
+                            <h1 class="profile-grade-grade-text">367</h1>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="profile-grade-subject">
+                        <h5>Математика</h5>
+                    </div>
+                </div>
+                  <div class="profile-grade-item">
+                    <div class="profile-grade-circle">
+                        <div class="profile-grade-star">
+                            <img src="{% static 'img/star.png' %}" class="img-fluid">
+                        </div>
+                        <div class="profile-grade-grade">
+                            <h1 class="profile-grade-grade-text">367</h1>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="profile-grade-subject">
+                        <h5>Математика</h5>
+                    </div>
+                </div>
+                  <div class="profile-grade-item">
+                    <div class="profile-grade-circle">
+                        <div class="profile-grade-star">
+                            <img src="{% static 'img/star.png' %}" class="img-fluid">
+                        </div>
+                        <div class="profile-grade-grade">
+                            <h1 class="profile-grade-grade-text">367</h1>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="profile-grade-subject">
+                        <h5>Математика</h5>
+                    </div>
+                </div>
+                  <div class="profile-grade-item">
+                    <div class="profile-grade-circle">
+                        <div class="profile-grade-star">
+                            <img src="{% static 'img/star.png' %}" class="img-fluid">
+                        </div>
+                        <div class="profile-grade-grade">
+                            <h1 class="profile-grade-grade-text">367</h1>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="profile-grade-subject">
+                        <h5>Математика</h5>
+                    </div>
+                </div>
 
+            </div>
+        </div>
+        <br>
+        <div class="card bg-white" style="padding: 25px;">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="monthly-grades-student-img">
+                        <img src="{% static 'img/student.png' %}" width="200px" >
+                    </div>
+                </div>
+                <div class="col-md-7">
+                    <h5 class="text-orange student-status">статус:</h5>
+                    <h6 class="text-blue student-status-value">Супер</h6>
+                    <h5 class="text-orange student-grade">Общий балл</h5>
+                    <h1 class="text-blue student-grade-value">567 б</h1>
+                </div>
+            </div>
+            <div style="margin-left: auto; margin-right: auto; text-align: center">
+                <div style="">
+                    <a class="btn btn-orange" href="">Посмореть контрольную оценку</a>
+                </div>
+            </div>
+        </div>
+        <br>
+
+    </main>
 </div>
 
 
