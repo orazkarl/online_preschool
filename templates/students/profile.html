@@ -1,12 +1,56 @@
-{% extends 'students/base.html' %}
-{% block title %}Профиль {{ student.get_full_name }} {% endblock %}
+{#{% extends 'students/base.html' %}#}
+{#{% block title %}Профиль {{ student.get_full_name }} {% endblock %}#}
 
-{% block content %}
-    <div class="container">
-        <img src="" alt="">
-        <h1>{{ student.get_full_name }}</h1>
-        <p>{{ student.dob }}</p>
-        <p>{{ student.student.student_group }}</p>
-        <a href="" class="btn btn-secondary">Посмотреть контрольную</a>
-    </div>
-{% endblock %}
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Orazali Karl">
+    <meta name="generator" content="Hugo 0.83.1">
+    <title>Профиль</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'dist/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/students.css' %}">
+</head>
+<body>
+
+<div class="container py-3">
+    <header>
+        <div class=" flex-column flex-md-row align-items-center pb-3">
+            <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+                <span class="fs-4">Мой ребенок</span>
+            </a>
+
+        </div>
+        <div style="margin-left: auto; margin-right: auto;">
+                <a class="btn btn-orange" href="{% url 'news_list' %}">Новости</a>
+                <a class="btn btn-orange" href="{% url 'student_schedule' request.user.student.student_group.id %}">Расписание</a>
+                <a class="btn btn-orange" href="{% url 'student_subjects' %}">Предметы</a>
+                <a class="btn btn-orange" href="{% url 'student_subjects' %}">Настройки</a>
+                <a class="btn btn-danger " href="{% url 'account_logout' %}">Выйти</a>
+            </div>
+    </header>
+    <br>
+    <main>
+        <div class="card bg-white" style="padding: 15px; flex-direction: row">
+            <div style="flex: 1;">
+                <div class="student-img" >
+                <img src="{{ request.user.avatar.url }}" width="227px" height="227px">
+            </div>
+            </div>
+            <div style="flex: 1;">
+                <h1 class="student-name">{{ student.get_full_name }}</h1>
+                <h3 class="student-info">{{ student.dob }}</h3>
+                <h3 class="student-info">{{ student.student.student_group.name }}</h3>
+            </div>
+        </div>
+
+</div>
+
+
+</body>
+</html>

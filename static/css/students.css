@@ -1,0 +1,32 @@
+html, body {
+    background-color: #ECEFF8;
+}
+
+.btn-orange {
+    background-color: #FF9412;
+    border-color: #FF9412;
+    padding-left: 50px;
+    padding-right: 50px;
+    color: #fff;
+}
+
+.btn-orange:hover {
+    background-color: #FF9412;
+    color: #fff;
+}
+
+.student-img {
+    width: 227px;
+    height: 227px;
+    overflow: hidden;
+    border-radius: 50%;
+    position: relative;
+}
+
+.student-name {
+    color: #317EEF;
+}
+
+.student-info {
+    color: #FF6A00;
+}

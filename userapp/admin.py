@@ -33,7 +33,7 @@ class TeacherUserAdmin(DjangoUserAdmin):
          {'fields': ('username', 'email', 'password')}),
         (('Личная информация'),
          {'fields': (
-             'first_name', 'last_name', 'dob', 'phone')}),
+             'first_name', 'last_name', 'avatar','dob', 'phone')}),
         (('Права доступа'), {
             'fields': ('is_active', 'is_staff', 'is_superuser'),
         }),
@@ -44,7 +44,7 @@ class TeacherUserAdmin(DjangoUserAdmin):
         (None, {
             'classes': ('wide',),
             'fields': (
-                'email', 'username', 'first_name', 'last_name', 'dob',  'phone', 'password1', 'password2'),
+                'email', 'username', 'first_name', 'last_name', 'avatar',  'dob',  'phone', 'password1', 'password2'),
         }),
     )
 
@@ -81,7 +81,7 @@ class StudentUserAdmin(DjangoUserAdmin):
          {'fields': ('username', 'email', 'password')}),
         (('Личная информация'),
          {'fields': (
-             'first_name', 'last_name', 'dob', 'phone')}),
+             'first_name', 'last_name', 'avatar','dob', 'phone')}),
         (('Права доступа'), {
             'fields': ('is_active',),
         }),
@@ -92,7 +92,7 @@ class StudentUserAdmin(DjangoUserAdmin):
         (None, {
             'classes': ('wide',),
             'fields': (
-                'email', 'username', 'first_name', 'last_name', 'dob',  'phone', 'password1', 'password2'),
+                'email', 'username', 'first_name', 'last_name', 'avatar', 'dob',  'phone', 'password1', 'password2'),
         }),
     )
 
