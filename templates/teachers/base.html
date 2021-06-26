@@ -1,72 +1,235 @@
-{% load static %}
 <!doctype html>
-<html lang="en">
+<html class="no-js" lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Orazali Karl">
-    <meta name="generator" content="Hugo 0.83.1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>{% block title %}{% endblock %}</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Bootstrap core CSS -->
-    <link href="{% static 'dist/css/bootstrap.min.css' %}" rel="stylesheet">
-    <link href="{% static 'css/dashboard.css' %}" rel="stylesheet">
-    <style>
-        body {
-            font-size: 20px;
-        }
-    </style>
+{#    <link rel="icon" href="/static/onlinestore/images/logos/icon.png" type="image/x-icon"/>#}
+
+    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800" rel="stylesheet">
+
+    <link rel="stylesheet" href="/static/teachers/plugins/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/teachers/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="/static/teachers/plugins/icon-kit/dist/css/iconkit.min.css">
+    <link rel="stylesheet" href="/static/teachers/plugins/ionicons/dist/css/ionicons.min.css">
+    <link rel="stylesheet" href="/static/teachers/plugins/perfect-scrollbar/css/perfect-scrollbar.css">
+    <link rel="stylesheet" href="/static/teachers/plugins/datatables.net-bs4/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="/static/teachers/plugins/jvectormap/jquery-jvectormap.css">
+    <link rel="stylesheet" href="/static/teachers/plugins/tempusdominus-bootstrap-4/build/css/tempusdominus-bootstrap-4.min.css">
+    <link rel="stylesheet" href="/static/teachers/plugins/weather-icons/css/weather-icons.min.css">
+    <link rel="stylesheet" href="/static/teachers/plugins/c3/c3.min.css">
+    <link rel="stylesheet" href="/static/teachers/plugins/owl.carousel/dist/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="/static/teachers/plugins/owl.carousel/dist/assets/owl.theme.default.min.css">
+    <link rel="stylesheet" href="/static/teachers/dist/css/theme.min.css">
+    <link rel="stylesheet" href="/static/teachers/style.css">
+    <link rel="stylesheet" href="/static/teachers/plugins/owl.carousel/dist/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="/static/teachers/plugins/owl.carousel/dist/assets/owl.theme.default.min.css">
+    <script src="/static/teachers/src/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
+
 <body>
+<!--[if lt IE 8]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+<![endif]-->
 
-    <header class="navbar navbar-dark sticky-top bg-light flex-md-nowrap p-0 shadow">
-        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">Company name</a>
-        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"
-                data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"
-                aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <ul class="navbar-nav px-3">
-            {% if request.user.is_authenticated %}
-                <a class="btn btn-danger" href="{% url 'account_logout' %}">Выйти</a>
-            {% else %}
-                <a class="btn btn-primary" href="{% url 'account_login' %}">Войти</a>
-            {% endif %}
-        </ul>
-    </header>
-    <div class="container-fluid">
-        <div class="row">
-            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-                <div class="position-sticky pt-3">
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{% url 'teacher_profile' %}">
-                                <span data-feather="home"></span>
-                                Профиль
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{% url 'teacher_studentgroups' %}">
-                                <span data-feather="users"></span>
-                                Группы
-                            </a>
-                        </li>
-                    </ul>
+<div class="wrapper">
+    <header class="header-top" header-theme="light">
+        <div class="container-fluid">
+            <div class="d-flex justify-content-between">
+                <div class="top-menu d-flex align-items-center">
+                            <button type="button" class="btn-icon mobile-nav-toggle d-lg-none"><span></span></button>
+                            <button type="button" id="navbar-fullscreen" class="nav-link"><i class="ik ik-maximize"></i></button>
+                        </div>
+                <div class="top-menu d-flex align-items-center">
+                    <div class="dropdown">
+                        <a class="dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">
+                            {% if request.user.avatar %}
+                                <img class="avatar"
+                                     src="{{ request.user.avatar.url }}" alt=""></a>
+                            {% else %}
+                                <img class="avatar"
+                                     src="/static/teachers/img/user.jpg" alt=""></a>
+                            {% endif %}
+
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                            <a class="dropdown-item" href="#"><i class="ik ik-user dropdown-icon"></i> Профиль</a>
+                            <a class="dropdown-item" href="{% url 'account_logout' %}"><i class="ik ik-power dropdown-icon"></i>
+                                Выйти</a>
+                        </div>
+                    </div>
+
                 </div>
-            </nav>
+            </div>
+        </div>
+    </header>
 
-            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    <div class="page-wrap">
+        <div class="app-sidebar colored">
+            <div class="sidebar-header">
+                <a class="header-brand" href="/dashboard">
+                    <div class="logo-img">
+{#                        <img src="/static/onlinestore/images/logos/logo%20BEST.png"#}
+{#                             style="height: 25px; margin-left: -5px">#}
+                        <span class="text">Онлайн школа</span>
+                    </div>
+
+                </a>
+                <button id="sidebarClose" class="nav-close"><i class="ik ik-x"></i></button>
+            </div>
+
+            <div class="sidebar-content">
+                <div class="nav-container">
+                    <nav id="main-menu-navigation" class="navigation-main">
+                        <div class="nav-item">
+                            <a href="{% url 'teacher_profile' %}"><i class="ik ik-user"></i><span>Профиль</span></a>
+                        </div>
+                        <div class="nav-item">
+                            <a href="{% url 'teacher_studentgroups' %}"><i class="ik ik-users"></i><span>Мои группы</span></a>
+                        </div>
+                        <div class="nav-item">
+                            <a href="{% url 'news_list' %}"><i class="ik ik-clipboard "></i><span>Новости</span></a>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <div class="main-content">
+            <div class="container-fluid">
                 {% block content %}
                 {% endblock %}
-            </main>
+            </div>
         </div>
+
+
+        <footer class="footer">
+            <div class="w-100 clearfix">
+            </div>
+        </footer>
+
     </div>
+</div>
 
 
-<script src="{% static 'dist/js/bootstrap.bundle.min.js' %}"></script>
-<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
-<script src="{% static 'js/dashboard.js' %}"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script>window.jQuery || document.write('<script src="src/js/vendor/jquery-3.3.1.min.js"><\/script>')</script>
+<script src="/static/teachers/plugins/popper.js/dist/umd/popper.min.js"></script>
+<script src="/static/teachers/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/static/teachers/plugins/perfect-scrollbar/dist/perfect-scrollbar.min.js"></script>
+<script src="/static/teachers/plugins/screenfull/dist/screenfull.js"></script>
+<script src="/static/teachers/plugins/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="/static/teachers/plugins/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="/static/teachers/plugins/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="/static/teachers/plugins/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+<script src="/static/teachers/plugins/jvectormap/jquery-jvectormap.min.js"></script>
+{#<script src="/static/dashboard/plugins/jvectormap/tests/assets/jquery-jvectormap-world-mill-en.js"></script>#}
+<script src="/static/teachers/plugins/moment/moment.js"></script>
+<script src="/static/teachers/plugins/tempusdominus-bootstrap-4/build/js/tempusdominus-bootstrap-4.min.js"></script>
+<script src="/static/teachers/plugins/d3/dist/d3.min.js"></script>
+<script src="/static/teachers/plugins/c3/c3.min.js"></script>
+<script src="/static/teachers/js/tables.js"></script>
+<script src="/static/teachers/js/widgets.js"></script>
+{#<script src="/static/dashboard/js/charts.js"></script>#}
+<script src="/static/teachers/dist/js/theme.min.js"></script>
+<script src="/static/teachers/plugins/owl.carousel/dist/owl.carousel.min.js"></script>
+{#<script src="/static/dashboard/dist/js/theme.min.js"></script>#}
+<script src="/static/teachers/js/carousel.js"></script>
+
+
+<script src="/static/dashboard/js/form-components.js"></script>
+<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+<script>
+    (function (b, o, i, l, e, r) {
+        b.GoogleAnalyticsObject = l;
+        b[l] || (b[l] =
+            function () {
+                (b[l].q = b[l].q || []).push(arguments)
+            });
+        b[l].l = +new Date;
+        e = o.createElement(i);
+        r = o.getElementsByTagName(i)[0];
+        e.src = 'https://www.google-analytics.com/analytics.js';
+        r.parentNode.insertBefore(e, r)
+    }(window, document, 'script', 'ga'));
+    ga('create', 'UA-XXXXX-X', 'auto');
+    ga('send', 'pageview');
+</script>
+
 </body>
 </html>
+{#{% load static %}#}
+{#<!doctype html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="utf-8">#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1">#}
+{#    <meta name="description" content="">#}
+{#    <meta name="author" content="Orazali Karl">#}
+{#    <meta name="generator" content="Hugo 0.83.1">#}
+{#    <title>{% block title %}{% endblock %}</title>#}
+{##}
+{#    <!-- Bootstrap core CSS -->#}
+{#    <link href="{% static 'dist/css/bootstrap.min.css' %}" rel="stylesheet">#}
+{#    <link href="{% static 'css/dashboard.css' %}" rel="stylesheet">#}
+{#    <style>#}
+{#        body {#}
+{#            font-size: 20px;#}
+{#        }#}
+{#    </style>#}
+{#</head>#}
+{#<body>#}
+{##}
+{#    <header class="navbar navbar-dark sticky-top bg-light flex-md-nowrap p-0 shadow">#}
+{#        <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#">Company name</a>#}
+{#        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse"#}
+{#                data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false"#}
+{#                aria-label="Toggle navigation">#}
+{#            <span class="navbar-toggler-icon"></span>#}
+{#        </button>#}
+{#        <ul class="navbar-nav px-3">#}
+{#            {% if request.user.is_authenticated %}#}
+{#                <a class="btn btn-danger" href="{% url 'account_logout' %}">Выйти</a>#}
+{#            {% else %}#}
+{#                <a class="btn btn-primary" href="{% url 'account_login' %}">Войти</a>#}
+{#            {% endif %}#}
+{#        </ul>#}
+{#    </header>#}
+{#    <div class="container-fluid">#}
+{#        <div class="row">#}
+{#            <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">#}
+{#                <div class="position-sticky pt-3">#}
+{#                    <ul class="nav flex-column">#}
+{#                        <li class="nav-item">#}
+{#                            <a class="nav-link active" aria-current="page" href="{% url 'teacher_profile' %}">#}
+{#                                <span data-feather="home"></span>#}
+{#                                Профиль#}
+{#                            </a>#}
+{#                        </li>#}
+{#                        <li class="nav-item">#}
+{#                            <a class="nav-link" href="{% url 'teacher_studentgroups' %}">#}
+{#                                <span data-feather="users"></span>#}
+{#                                Группы#}
+{#                            </a>#}
+{#                        </li>#}
+{#                    </ul>#}
+{#                </div>#}
+{#            </nav>#}
+{##}
+{#            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">#}
+{#                {% block content %}#}
+{#                {% endblock %}#}
+{#            </main>#}
+{#        </div>#}
+{#    </div>#}
+{##}
+{##}
+{#<script src="{% static 'dist/js/bootstrap.bundle.min.js' %}"></script>#}
+{#<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"></script>#}
+{#<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>#}
+{#<script src="{% static 'js/dashboard.js' %}"></script>#}
+{#</body>#}
+{#</html>#}

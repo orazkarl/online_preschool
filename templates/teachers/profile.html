@@ -1,29 +1,32 @@
 {% extends 'teachers/base.html' %}
+{% load static %}
+
 {% block title %}Профиль Учителя  - {{ teacher.get_full_name }} {% endblock %}
 
 {% block content %}
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-        <h1 class="h2">Профиль</h1>
-        {#        <div class="btn-toolbar mb-2 mb-md-0">#}
-        {#            <div class="btn-group me-2">#}
-        {#                <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>#}
-        {#                <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>#}
-        {#            </div>#}
-        {#            <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">#}
-        {#                <span data-feather="calendar"></span>#}
-        {#                This week#}
-        {#            </button>#}
-        {#        </div>#}
-    </div>
+    <div class="container-fluid">
+        <div class="page-header">
+            <div class="row align-items-end">
+                <div class="col-lg-2">
+                    <div class="page-header-title"
+                         style="background-color: white; padding: 5px 0 25px 5px; border-radius: 5px">
+                        <i class="ik ik-user bg-blue"></i>
+                        <div class="d-inline">
+                            <h5>Профиль </h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
 
 
-
-
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-body p-0 table-border-style">
-                    <div class="table-responsive" style="font-size: 18px">
+                <div class="card">
+                    <div class="card-body p-0 table-border-style">
+                        <div class="table-responsive" style="font-size: 18px">
+                                                <div class="table-responsive" style="font-size: 18px">
                         <table class="table table-hover">
                             <tbody>
                                 <th scope="row">Логин</th>
@@ -57,16 +60,15 @@
                             </tbody>
                         </table>
 
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{% url 'account_change_password' %}" class="btn btn-success">Изменить пароль</a>
                     </div>
                 </div>
-                <div class="card-footer">
-                    <a href="{% url 'account_change_password' %}" class="btn btn-success">Изменить пароль</a>
 
-                </div>
             </div>
-
         </div>
     </div>
-
-
+    </div>
 {% endblock %}

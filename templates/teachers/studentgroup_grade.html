@@ -2,46 +2,60 @@
 {% block title %} Поставить оценку {% endblock %}
 
 {% block content %}
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap pt-3 ">
-        <h1 class="h2">Поставить оценку для группы {{ studentgroup.name }}</h1>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12">
-            <div class="table-responsive">
-                <form action="{% url 'teacher_studentgroupgrade' lesson.id  %}" method="post">
-                    {% csrf_token %}
-                    <table class="table">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Ученик</th>
-                            <th>Успеваемость</th>
-                            <th>Дом зад</th>
-                            <th>Воспитание</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {% for student in studentgroup.students.all %}
-                        <tr>
-                            <td>{{ forloop.counter }}</td>
-                            <td>{{ student.get_full_name }}</td>
-                            <td><input type="checkbox" name="{{ student.id }}__is_lesson"></td>
-                            <td><input type="checkbox" name="{{ student.id }}__is_homework"></td>
-                            <td><input type="checkbox" name="{{ student.id }}__is_behavior"></td>
-                        </tr>
-                    {% endfor %}
-
-
-                    </tbody>
-                </table>
-                    <br>
-                    <input type="submit" class="btn btn-primary">
-                </form>
+    <div class="container-fluid">
+        <div class="page-header">
+            <div class="row align-items-end">
+                <div class="col-lg-4">
+                    <div class="page-header-title"
+                         style="background-color: white; padding: 5px 0 25px 5px; border-radius: 5px">
+                        <i class="ik ik-user bg-blue"></i>
+                        <div class="d-inline">
+                            <h5>Поставить оценку для группы {{ studentgroup.name }}</h5>
+                        </div>
+                    </div>
+                </div>
             </div>
-
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body p-0 table-border-style">
+                        <div class="table-responsive" style="font-size: 18px">
+                            <div class="table-responsive" style="font-size: 18px">
+                                <form action="{% url 'teacher_studentgroupgrade' lesson.id %}" method="post">
+                                    {% csrf_token %}
+                                    <table class="table table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Ученик</th>
+                                            <th>Успеваемость</th>
+                                            <th>Дом зад</th>
+                                            <th>Воспитание</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for student in studentgroup.students.all %}
+                                            <tr>
+                                                <td>{{ forloop.counter }}</td>
+                                                <td>{{ student.get_full_name }}</td>
+                                                <td><input type="checkbox" name="{{ student.id }}__is_lesson"></td>
+                                                <td><input type="checkbox" name="{{ student.id }}__is_homework"></td>
+                                                <td><input type="checkbox" name="{{ student.id }}__is_behavior"></td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                    <br>
+                                    <div class="card-footer">
+                                        <input type="submit" class="btn btn-primary">
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
-
 {% endblock %}

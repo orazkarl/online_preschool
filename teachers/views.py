@@ -1,3 +1,4 @@
+from django.db.models import F, OuterRef, Subquery, Exists
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.views import generic
@@ -107,3 +108,58 @@ class StudentGroupGradeView(generic.TemplateView):
 
 class MonthlyGradeView(generic.TemplateView):
     template_name = 'teachers/monthlygrade.html'
+
+    def get(self, request, *args, **kwargs):
+        studentgroup = StudentGroup.objects.get(id=self.kwargs['group_id'])
+        subject = Subject.objects.get(id=self.kwargs['subject_id'])
+        month1 = MonthlyGrade.objects.filter(student=OuterRef('pk'), subject=subject, month='1')
+        month2 = MonthlyGrade.objects.filter(student=OuterRef('pk'), subject=subject, month='2')
+        month3 = MonthlyGrade.objects.filter(student=OuterRef('pk'), subject=subject, month='3')
+        month4 = MonthlyGrade.objects.filter(student=OuterRef('pk'), subject=subject, month='4')
+        month5 = MonthlyGrade.objects.filter(student=OuterRef('pk'), subject=subject, month='5')
+        month6 = MonthlyGrade.objects.filter(student=OuterRef('pk'), subject=subject, month='6')
+        month7 = MonthlyGrade.objects.filter(student=OuterRef('pk'), subject=subject, month='7')
+        month8 = MonthlyGrade.objects.filter(student=OuterRef('pk'), subject=subject, month='8')
+        month9 = MonthlyGrade.objects.filter(student=OuterRef('pk'), subject=subject, month='9')
+        month10 = MonthlyGrade.objects.filter(student=OuterRef('pk'), subject=subject, month='10')
+        month11 = MonthlyGrade.objects.filter(student=OuterRef('pk'), subject=subject, month='11')
+        month12 = MonthlyGrade.objects.filter(student=OuterRef('pk'), subject=subject, month='12')
+        students = studentgroup.students.all().annotate(
+            month1=Exists(month1),
+            month2=Exists(month2),
+            month3=Exists(month3),
+            month4=Exists(month4),
+            month5=Exists(month5),
+            month6=Exists(month6),
+            month7=Exists(month7),
+            month8=Exists(month8),
+            month9=Exists(month9),
+            month10=Exists(month10),
+            month11=Exists(month11),
+            month12=Exists(month12),
+        )
+        print(students.first().month1)
+        self.extra_context = {
+            'studentgroup': studentgroup,
+            'subject': subject,
+            'students': students,
+        }
+        return super().get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        studentgroup = StudentGroup.objects.get(id=self.kwargs['group_id'])
+        subject = Subject.objects.get(id=self.kwargs['subject_id'])
+
+        for student in studentgroup.students.all():
+            month = request.POST['student_' + str(student.id) + '_month']
+            grade = request.POST['student_' + str(student.id) + '_grade']
+            MonthlyGrade.objects.update_or_create(
+                month=month,
+                subject=subject,
+                student=student,
+                defaults={
+                    'grade': grade
+                }
+            )
+
+        return redirect(reverse('teacher_studentgroupdetail', kwargs={'group_id': studentgroup.id, 'subject_id': subject.id}))

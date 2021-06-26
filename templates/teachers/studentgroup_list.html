@@ -1,56 +1,57 @@
 {% extends 'teachers/base.html' %}
+{% load static %}
+
 {% block title %}Профиль Учителя  - {{ teacher.get_full_name }} {% endblock %}
 
 {% block content %}
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-        <h1 class="h2">Список групп</h1>
-        {#        <div class="btn-toolbar mb-2 mb-md-0">#}
-        {#            <div class="btn-group me-2">#}
-        {#                <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>#}
-        {#                <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>#}
-        {#            </div>#}
-        {#            <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">#}
-        {#                <span data-feather="calendar"></span>#}
-        {#                This week#}
-        {#            </button>#}
-        {#        </div>#}
-    </div>
-
-
-
-
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-body p-0 table-border-style">
-                    <div class="table-responsive" style="font-size: 18px">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Название группы</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for studentgroup in studentgroup_list %}
-                                    <tr>
-                                        <th scope="row">{{ forloop.counter }}</th>
-                                        <td>{{ studentgroup.name }}</td>
-                                        <td><a href="{% url 'teacher_studentgroupdetail' group_id=studentgroup.id subject_id=request.user.teacher.subject.id %}">Посмотреть</a></td>
-                                    </tr>
-                                {% endfor %}
-
-
-                            </tbody>
-                        </table>
-
+    <div class="container-fluid">
+        <div class="page-header">
+            <div class="row align-items-end">
+                <div class="col-lg-2">
+                    <div class="page-header-title"
+                         style="background-color: white; padding: 5px 0 25px 5px; border-radius: 5px">
+                        <i class="ik ik-users bg-blue"></i>
+                        <div class="d-inline">
+                            <h5>Мои группы</h5>
+                        </div>
                     </div>
                 </div>
             </div>
+        </div>
 
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body p-0 table-border-style">
+                        <div class="table-responsive">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Название группы</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for studentgroup in studentgroup_list %}
+                                        <tr>
+                                            <th scope="row">{{ forloop.counter }}</th>
+                                            <td>{{ studentgroup.name }}</td>
+                                            <td>
+                                                <a href="{% url 'teacher_studentgroupdetail' group_id=studentgroup.id subject_id=request.user.teacher.subject.id %}"
+                                                   class="btn btn-primary">Посмотреть</a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                </div>
+
+            </div>
+        </div>
         </div>
     </div>
-
-
 {% endblock %}

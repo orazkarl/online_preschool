@@ -1,72 +1,75 @@
 {% extends 'teachers/base.html' %}
-{% block title %}Поставить оценку для группы "{{ studentgroup.name }}" {% endblock %}
+{% block title %}Поставить ежемесячную оценку для группы "{{ studentgroup.name }}" {% endblock %}
 
 {% block content %}
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap pt-3 ">
-        <h1 class="h2">Поставить оценку для группы "{{ studentgroup.name }}"</h1>
-
-    </div>
-
-    <div class="row">
-        <div class="col-md-12">
-            <div class="table">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Январь</th>
-                            <th>Раз</th>
-                            <th>Февраль</th>
-                            <th>Раз</th>
-                            <th>Апрель</th>
-                            <th>Раз</th>
-                            <th>Май</th>
-                            <th>Раз</th>
-                            <th>Июнь</th>
-                            <th>Раз</th>
-                            <th>Июль</th>
-                            <th>Раз</th>
-                            <th>Август</th>
-                            <th>Раз</th>
-                            <th>Сентябрь</th>
-                            <th>Раз</th>
-                            <th>Ноябрь</th>
-                            <th>Раз</th>
-                            <th>Декабрь</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <tr>
-                        <td>#</td>
-                        <td>Январь</td>
-                        <td>Разница</td>
-                        <td>Февраль</td>
-                        <td>Разница</td>
-                        <td>Апрель</td>
-                        <td>Разница</td>
-                        <td>Май</td>
-                        <td>Разница</td>
-                        <td>Июнь</td>
-                        <td>Разница</td>
-                        <td>Июль</td>
-                        <td>Разница</td>
-                        <td>Август</td>
-                        <td>Разница</td>
-                        <td>Сентябрь</td>
-                        <td>Разница</td>
-                        <td>Ноябрь</td>
-                        <td>Разница</td>
-                        <td>Декабрь</td>
-                    </tr>
-                        </tr>
-                    </tbody>
-
-                </table>
+    <div class="container-fluid">
+        <div class="page-header">
+            <div class="row align-items-end">
+                <div class="col-lg-4">
+                    <div class="page-header-title"
+                         style="background-color: white; padding: 5px 0 25px 5px; border-radius: 5px">
+                        <i class="ik ik-user bg-blue"></i>
+                        <div class="d-inline">
+                            <h5>Поставить ежемесячную оценку для группы {{ studentgroup.name }} по "{{ subject.name }}"</h5>
+                        </div>
+                    </div>
+                </div>
             </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <form action="{% url 'teacher_monthlygrade' group_id=studentgroup.id subject_id=subject.id %}" method="post">
+                        {% csrf_token %}
+                        <div class="card-body p-0 table-border-style">
+                        <div class="table-responsive" >
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Месяц</th>
+                                        <th>Оценка</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for student in students %}
 
+                                    <tr>
+                                        <td>{{ student.get_full_name }}</td>
+                                        <td>
+                                            <select name="student_{{ student.id }}_month" class="form-control">
+                                                {% if not student.month1 %}<option value="1">Январь</option>{% endif %}
+                                                {% if not student.month2 %}<option value="2">Февраль</option>{% endif %}
+                                                {% if not student.month3 %}<option value="3">Март</option>{% endif %}
+                                                {% if not student.month4 %}<option value="4">Апрель</option>{% endif %}
+                                                {% if not student.month5 %}<option value="5">Май</option>{% endif %}
+                                                {% if not student.month6 %}<option value="6">Июнь</option>{% endif %}
+                                                {% if not student.month7 %}<option value="7">Июль</option>{% endif %}
+                                                {% if not student.month8 %}<option value="8">Август</option>{% endif %}
+                                                {% if not student.month9 %}<option value="9">Сентябрь</option>{% endif %}
+                                                {% if not student.month10 %}<option value="10">Октябрь</option>{% endif %}
+                                                {% if not student.month11 %}<option value="11">Ноябрь</option>{% endif %}
+                                                {% if not student.month12 %}<option value="12">Декабрь</option>{% endif %}
+                                            </select>
+                                        </td>
+                                        <td><input type="number" class="form-control" name="student_{{ student.id }}_grade"></td>
+                                    {% endfor %}
+
+
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <input type="submit" class="btn btn-primary">
+                    </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
-
 
 {% endblock %}

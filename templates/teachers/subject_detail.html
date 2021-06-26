@@ -2,49 +2,57 @@
 {% block title %}{{ studentgroup.name }} {% endblock %}
 
 {% block content %}
-    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap pt-3 ">
-        <h1 class="h2">{{ studentgroup.name }}</h1>
-
-        <div class="">
-            <div class="btn-group me-2">
-                <a href="{% url 'lesson_create' studentgroup.id %}" class="btn btn-primary">Добавить урок</a>
+    <div class="container-fluid">
+        <div class="page-header">
+            <div class="row align-items-end">
+                <div class="col-lg-2">
+                    <div class="page-header-title"
+                         style="background-color: white; padding: 5px 0 25px 5px; border-radius: 5px">
+                        <i class="ik ik-users bg-blue"></i>
+                        <div class="d-inline">
+                            <h5>{{ studentgroup.name }}</h5>
+                            <span class="text">Предмет: "{{ subject.name }}"</span>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <br>
+                <div class="col-lg-12">
+                    <div class="btn-group me-2">
+                        <a href="{% url 'lesson_create' studentgroup.id %}" class="btn btn-primary">Добавить урок</a>
+                    </div>
+                    <div class="btn-group me-2">
+                        <a href="{% url 'teacher_monthlygrade' group_id=studentgroup.id subject_id=subject.id %}"
+                           class="btn btn-primary">Поставить оценку за месяц</a>
+                    </div>
+                </div>
             </div>
-            <div class="btn-group me-2">
-                <a href="{% url 'teacher_monthlygrade' group_id=studentgroup.id subject_id=subject.id %}" class="btn btn-primary">Поставить оценку за месяц</a>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="list-group">
+                    {% for lesson in lessons %}
+                        <div class="card">
+                            <div class="card-header">
+                                <h5>{{ lesson.name }}</h5>
+                            </div>
+                            <div class="card-body">
+                                <p>Дата: {{ lesson.date }}</p>
+                                <p>Описание: {{ lesson.description }}</p>
+                                <hr>
+                                <h5>Дом задание: "{{ lesson.homework.name }}"</h5>
+                                <p>Описание: {{ lesson.homework.description }}</p>
+                            </div>
+                            <div class="card-footer">
+                                <a href="{% url 'teacher_studentgroupgrade' lesson.id %}"
+                                   class="btn btn-primary">Поставить оценку</a>
+                            </div>
+                        </div>
+                        <br>
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>
-
-    <div class="row">
-        <h3>Предмет: "{{ subject.name }}"</h3>
-        <div class="col-md-12">
-
-            <div class="list-group">
-                {% for lesson in lessons %}
-                    <div class="card">
-                        <div class="card-header">
-                            <h3>{{ lesson.name }}</h3>
-                            <p>{{ lesson.date }}</p>
-                        </div>
-                        <div class="card-body">
-                            <p>{{ lesson.description }}</p>
-                            <hr>
-                            <h4>Дом задание: "{{ lesson.homework.name }}"</h4>
-                            <p>{{ lesson.homework.description }}</p>
-                        </div>
-                    <div class="card-header">
-                        <a href="{% url 'teacher_studentgroupgrade' lesson.id %}" class="btn btn-primary">Поставить оценку</a>
-                    </div>
-                    </div>
-
-                    <br>
-                {% endfor %}
-
-
-            </div>
-
-        </div>
-    </div>
-
-
 {% endblock %}
