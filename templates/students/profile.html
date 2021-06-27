@@ -29,76 +29,24 @@
         <br>
         <div class="card bg-white" style="padding: 25px;">
             <div class="profile-grade-list">
-                <div class="profile-grade-item">
+                {% for name, grade in student_grades_dict.items %}
+                    <div class="profile-grade-item">
                     <div class="profile-grade-circle">
                         <div class="profile-grade-star">
                             <img src="{% static 'img/star.png' %}" class="img-fluid">
                         </div>
                         <div class="profile-grade-grade">
-                            <h1 class="profile-grade-grade-text">367</h1>
+                            <h1 class="profile-grade-grade-text">{{ grade }}</h1>
                         </div>
                     </div>
                     <br>
                     <div class="profile-grade-subject">
-                        <h5>Математика</h5>
+                        <h5>{{ name}}</h5>
                     </div>
                 </div>
-                <div class="profile-grade-item">
-                    <div class="profile-grade-circle">
-                        <div class="profile-grade-star">
-                            <img src="{% static 'img/star.png' %}" class="img-fluid">
-                        </div>
-                        <div class="profile-grade-grade">
-                            <h1 class="profile-grade-grade-text">367</h1>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="profile-grade-subject">
-                        <h5>Математика</h5>
-                    </div>
-                </div>
-                  <div class="profile-grade-item">
-                    <div class="profile-grade-circle">
-                        <div class="profile-grade-star">
-                            <img src="{% static 'img/star.png' %}" class="img-fluid">
-                        </div>
-                        <div class="profile-grade-grade">
-                            <h1 class="profile-grade-grade-text">367</h1>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="profile-grade-subject">
-                        <h5>Математика</h5>
-                    </div>
-                </div>
-                  <div class="profile-grade-item">
-                    <div class="profile-grade-circle">
-                        <div class="profile-grade-star">
-                            <img src="{% static 'img/star.png' %}" class="img-fluid">
-                        </div>
-                        <div class="profile-grade-grade">
-                            <h1 class="profile-grade-grade-text">367</h1>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="profile-grade-subject">
-                        <h5>Математика</h5>
-                    </div>
-                </div>
-                  <div class="profile-grade-item">
-                    <div class="profile-grade-circle">
-                        <div class="profile-grade-star">
-                            <img src="{% static 'img/star.png' %}" class="img-fluid">
-                        </div>
-                        <div class="profile-grade-grade">
-                            <h1 class="profile-grade-grade-text">367</h1>
-                        </div>
-                    </div>
-                    <br>
-                    <div class="profile-grade-subject">
-                        <h5>Математика</h5>
-                    </div>
-                </div>
+                {% endfor %}
+
+
 
             </div>
         </div>
@@ -114,7 +62,7 @@
                     <h5 class="text-orange student-status">статус:</h5>
                     <h6 class="text-blue student-status-value">Супер</h6>
                     <h5 class="text-orange student-grade">Общий балл</h5>
-                    <h1 class="text-blue student-grade-value">567 б</h1>
+                    <h1 class="text-blue student-grade-value">{{ total }} б</h1>
                 </div>
             </div>
             <div style="margin-left: auto; margin-right: auto; text-align: center">

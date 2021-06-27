@@ -1,3 +1,4 @@
+from django.db.models import Count
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.views import generic
@@ -16,8 +17,18 @@ class StudentProfileView(generic.TemplateView):
 
     def get(self, request, *args, **kwargs):
         student = request.user
+        student_grades = Grade.objects.filter(student=student.student)
+        student_grades_dict = dict()
+        total = 0
+        for grade in student_grades:
+            if not grade.lesson.subject.name in student_grades_dict:
+                student_grades_dict[grade.lesson.subject.name] = 0
+            student_grades_dict[grade.lesson.subject.name] += grade.get_grade()
+            total += grade.get_grade()
         self.extra_context = {
             'student': student,
+            'student_grades_dict': student_grades_dict,
+            'total': total
         }
         return super().get(request, *args, **kwargs)
 

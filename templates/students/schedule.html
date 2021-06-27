@@ -15,7 +15,7 @@
                 {% endfor %}
             </div>
         </div>
-
+        <br>
         <div class="card w-75" style="margin-left: auto; margin-right: auto">
             <div class="card-header">
                 <h2 class="text-blue">Вторник</h2>
@@ -27,7 +27,7 @@
                 {% endfor %}
             </div>
         </div>
-
+        <br>
         <div class="card w-75" style="margin-left: auto; margin-right: auto">
             <div class="card-header">
                 <h2 class="text-blue">Среда</h2>
@@ -39,7 +39,7 @@
                 {% endfor %}
             </div>
         </div>
-
+        <br>
         <div class="card w-75" style="margin-left: auto; margin-right: auto">
             <div class="card-header">
                 <h2 class="text-blue">Четверг</h2>
@@ -51,7 +51,7 @@
                 {% endfor %}
             </div>
         </div>
-
+        <br>
         <div class="card w-75" style="margin-left: auto; margin-right: auto">
             <div class="card-header">
                 <h2 class="text-blue">Пятница</h2>
@@ -63,99 +63,6 @@
                 {% endfor %}
             </div>
         </div>
-
-
-        {#        <div class="table" style="text-align: center">#}
-        {#            <table class="table">#}
-        {#                <thead>#}
-        {#                <tr>#}
-        {#                    <th></th>#}
-        {#                    <th>Понедельник</th>#}
-        {#                    <th>Вторник</th>#}
-        {#                    <th>Среда</th>#}
-        {#                    <th>Четверг</th>#}
-        {#                    <th>Пятница</th>#}
-        {#                    <th>Суббота</th>#}
-        {#                    <th>Воскресенье</th>#}
-        {#                </tr>#}
-        {#                </thead>#}
-        {#                <td>#}
-        {#                    <table class="table">#}
-        {#                        {% for time_lesson in time_lessons %}#}
-        {#                            <tr>#}
-        {#                                <th>{{ time_lesson }}</th>#}
-        {#                            </tr>#}
-        {#                        {% endfor %}#}
-        {#                    </table>#}
-        {#                </td>#}
-        {#                <td>#}
-        {#                    <table class="table">#}
-        {#                        {% for event in monday %}#}
-        {#                            <tr>#}
-        {#                                <td>{% if event.subject %}{{ event.subject }}{% else %}---{% endif %}</td>#}
-        {#                            </tr>#}
-        {#                        {% endfor %}#}
-        {#                    </table>#}
-        {#                </td>#}
-        {##}
-        {#                <td>#}
-        {#                    <table class="table">#}
-        {#                        {% for event in tuesday %}#}
-        {#                            <tr>#}
-        {#                                <td>{% if event.subject %}{{ event.subject }}{% else %}Нет урока{% endif %}</td>#}
-        {#                            </tr>#}
-        {#                        {% endfor %}#}
-        {#                    </table>#}
-        {#                </td>#}
-        {#                <td>#}
-        {#                    <table class="table">#}
-        {#                        {% for event in thursday %}#}
-        {#                            <tr>#}
-        {#                                <td>{% if event.subject %}{{ event.subject }}{% else %}Нет урока{% endif %}</td>#}
-        {#                            </tr>#}
-        {#                        {% endfor %}#}
-        {#                    </table>#}
-        {#                </td>#}
-        {#                <td>#}
-        {#                    <table class="table">#}
-        {#                        {% for event in wednesday%}#}
-        {#                            <tr>#}
-        {#                                <td>{% if event.subject %}{{ event.subject }}{% else %}Нет урока{% endif %}</td>#}
-        {#                            </tr>#}
-        {#                        {% endfor %}#}
-        {#                    </table>#}
-        {#                </td>#}
-        {#                <td>#}
-        {#                    <table class="table">#}
-        {#                        {% for event in friday %}#}
-        {#                            <tr>#}
-        {#                                <td>{% if event.subject %}{{ event.subject }}{% else %}Нет урока{% endif %}</td>#}
-        {#                            </tr>#}
-        {#                        {% endfor %}#}
-        {#                    </table>#}
-        {#                </td>#}
-        {#                <td>#}
-        {#                    <table class="table">#}
-        {#                        {% for event in saturday %}#}
-        {#                            <tr>#}
-        {#                                <td>{% if event.subject %}{{ event.subject }}{% endif %}</td>#}
-        {#                            </tr>#}
-        {#                        {% endfor %}#}
-        {#                    </table>#}
-        {#                </td>#}
-        {#                <td>#}
-        {#                    <table class="table">#}
-        {#                        {% for event in sunday %}#}
-        {#                            <tr>#}
-        {#                                <td>{% if event.subject %}{{ event.subject }}{% else %} {% endif %}</td>#}
-        {#                            </tr>#}
-        {#                        {% endfor %}#}
-        {#                    </table>#}
-        {#                </td>#}
-        {##}
-        {##}
-        {#            </table>#}
-        {#        </div>#}
     </div>
 
 {% endblock %}

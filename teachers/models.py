@@ -82,6 +82,13 @@ class Grade(models.Model):
     def __str__(self):
         return f"{self.lesson.name} - {self.student.get_full_name()}"
 
+    def get_grade(self):
+        grade = 0
+        grade = grade + 1 if self.is_lesson else grade
+        grade = grade + 1 if self.is_homework else grade
+        grade = grade + 1 if self.is_behavior else grade
+        return grade
+
     class Meta:
         verbose_name = 'Оценка'
         verbose_name_plural = 'Оценки'

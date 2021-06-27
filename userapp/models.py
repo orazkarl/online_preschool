@@ -30,3 +30,4 @@ class Student(models.Model):
         return self.get_full_name()
 
 
+

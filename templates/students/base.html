@@ -18,7 +18,7 @@
 <div class="container py-3">
     <header class="bg-white" style="padding: 20px">
         <div class=" flex-column flex-md-row align-items-center pb-3" >
-            <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+            <a href="/">
                 <img src="{% static 'img/logo.png' %}" width="102px">
             </a>
 
@@ -28,7 +28,7 @@
             <a class="btn btn-orange" href="{% url 'news_list' %}">Новости</a>
             <a class="btn btn-orange" href="{% url 'student_schedule' request.user.student.student_group.id %}">Расписание</a>
             <a class="btn btn-orange" href="{% url 'student_subjects' %}">Предметы</a>
-            <a href="" style="background: none"><img src="{% static 'img/settings.png' %}" height="38px"></a>
+            <a href="" style="background: none"> <img src="{% static 'img/settings.png' %}" height="38px"></a>
             <a class="btn btn-danger " href="{% url 'account_logout' %}">Выйти</a>
         </div>
     </header>
