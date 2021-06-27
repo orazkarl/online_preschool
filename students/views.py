@@ -5,7 +5,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
 
-from teachers.models import Lesson, Subject, HomeWorkStudent, HomeWork
+from teachers.models import Lesson, Subject, HomeWorkStudent, HomeWork, Grade
 from .models import Schedule, EventSchedule, TimeLesson, StudentGroup
 from .utils import is_student
 

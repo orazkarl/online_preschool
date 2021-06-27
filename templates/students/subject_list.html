@@ -3,16 +3,20 @@
 
 {% block content %}
     <div class="container">
-        <h1>Предметы</h1>
-        <div class="list-group">
+        <h1 class="text-blue text-center">Предметы</h1>
+        <br>
+        <div class="list-group" style="margin-right: auto; margin-left: auto">
         {% for subject in object_list %}
-            <div class="card">
-                <div class="card-header">
-                    <h3>Название предмета: {{ subject.name }} </h3>
-                    <h3>Препод: {{ subject.teacher }}</h3>
-                    <a href="{% url 'student_subject_detail' subject.id %} " class="btn btn-primary">Посмотреть</a>
+            <div class="card bg-white" style="padding: 25px">
+                <div class="card-body">
+                    <h1 class="text-blue">{{ subject.name }} </h1>
+                    <h3 class="text-blue">{{ subject.teacher }}</h3>
+                    <br>
+                    <a href="{% url 'student_subject_detail' subject.id %} " class="btn btn-orange">Посмотреть</a>
+                    <a href="{% url 'student_subject_detail' subject.id %} " class="btn btn-orange">Контрольная оценка</a>
                 </div>
             </div>
+            <br>
         {% endfor %}
     </div>
     </div>

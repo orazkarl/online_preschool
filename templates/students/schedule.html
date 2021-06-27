@@ -3,98 +3,159 @@
 
 {% block content %}
     <div class="container">
-        <h1>Расписание для группы "{{ student_group }}"</h1>
-        <div class="table" style="text-align: center">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th></th>
-                    <th>Понедельник</th>
-                    <th>Вторник</th>
-                    <th>Среда</th>
-                    <th>Четверг</th>
-                    <th>Пятница</th>
-                    <th>Суббота</th>
-                    <th>Воскресенье</th>
-                </tr>
-                </thead>
-                <td>
-                    <table class="table">
-                        {% for time_lesson in time_lessons %}
-                            <tr>
-                                <th>{{ time_lesson }}</th>
-                            </tr>
-                        {% endfor %}
-                    </table>
-                </td>
-                <td>
-                    <table class="table">
-                        {% for event in monday %}
-                            <tr>
-                                <td>{% if event.subject %}{{ event.subject }}{% else %}---{% endif %}</td>
-                            </tr>
-                        {% endfor %}
-                    </table>
-                </td>
-
-                <td>
-                    <table class="table">
-                        {% for event in tuesday %}
-                            <tr>
-                                <td>{% if event.subject %}{{ event.subject }}{% else %}Нет урока{% endif %}</td>
-                            </tr>
-                        {% endfor %}
-                    </table>
-                </td>
-                <td>
-                    <table class="table">
-                        {% for event in thursday %}
-                            <tr>
-                                <td>{% if event.subject %}{{ event.subject }}{% else %}Нет урока{% endif %}</td>
-                            </tr>
-                        {% endfor %}
-                    </table>
-                </td>
-                <td>
-                    <table class="table">
-                        {% for event in wednesday%}
-                            <tr>
-                                <td>{% if event.subject %}{{ event.subject }}{% else %}Нет урока{% endif %}</td>
-                            </tr>
-                        {% endfor %}
-                    </table>
-                </td>
-                <td>
-                    <table class="table">
-                        {% for event in friday %}
-                            <tr>
-                                <td>{% if event.subject %}{{ event.subject }}{% else %}Нет урока{% endif %}</td>
-                            </tr>
-                        {% endfor %}
-                    </table>
-                </td>
-                <td>
-                    <table class="table">
-                        {% for event in saturday %}
-                            <tr>
-                                <td>{% if event.subject %}{{ event.subject }}{% endif %}</td>
-                            </tr>
-                        {% endfor %}
-                    </table>
-                </td>
-                <td>
-                    <table class="table">
-                        {% for event in sunday %}
-                            <tr>
-                                <td>{% if event.subject %}{{ event.subject }}{% else %} {% endif %}</td>
-                            </tr>
-                        {% endfor %}
-                    </table>
-                </td>
-
-
-            </table>
+        <h1 class="text-blue text-center">Расписание для группы "{{ student_group }}"</h1>
+        <div class="card w-75" style="margin-left: auto; margin-right: auto">
+            <div class="card-header">
+                <h2 class="text-blue">Понодельник</h2>
+            </div>
+            <div class="card-body bg-white">
+                {% for event in monday %}
+                    <h3 class="text-orange">{{ event.time_lesson }} |
+                        {% if event.subject %}{{ event.subject }}{% else %}---{% endif %}</h3>
+                {% endfor %}
+            </div>
         </div>
+
+        <div class="card w-75" style="margin-left: auto; margin-right: auto">
+            <div class="card-header">
+                <h2 class="text-blue">Вторник</h2>
+            </div>
+            <div class="card-body bg-white">
+                {% for event in tuesday %}
+                    <h3 class="text-orange">{{ event.time_lesson }} |
+                        {% if event.subject %}{{ event.subject }}{% else %}---{% endif %}</h3>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="card w-75" style="margin-left: auto; margin-right: auto">
+            <div class="card-header">
+                <h2 class="text-blue">Среда</h2>
+            </div>
+            <div class="card-body bg-white">
+                {% for event in wednesday %}
+                    <h3 class="text-orange">{{ event.time_lesson }} |
+                        {% if event.subject %}{{ event.subject }}{% else %}---{% endif %}</h3>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="card w-75" style="margin-left: auto; margin-right: auto">
+            <div class="card-header">
+                <h2 class="text-blue">Четверг</h2>
+            </div>
+            <div class="card-body bg-white">
+                {% for event in thursday %}
+                    <h3 class="text-orange">{{ event.time_lesson }} |
+                        {% if event.subject %}{{ event.subject }}{% else %}---{% endif %}</h3>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="card w-75" style="margin-left: auto; margin-right: auto">
+            <div class="card-header">
+                <h2 class="text-blue">Пятница</h2>
+            </div>
+            <div class="card-body bg-white">
+                {% for event in friday %}
+                    <h3 class="text-orange">{{ event.time_lesson }} |
+                        {% if event.subject %}{{ event.subject }}{% else %}---{% endif %}</h3>
+                {% endfor %}
+            </div>
+        </div>
+
+
+        {#        <div class="table" style="text-align: center">#}
+        {#            <table class="table">#}
+        {#                <thead>#}
+        {#                <tr>#}
+        {#                    <th></th>#}
+        {#                    <th>Понедельник</th>#}
+        {#                    <th>Вторник</th>#}
+        {#                    <th>Среда</th>#}
+        {#                    <th>Четверг</th>#}
+        {#                    <th>Пятница</th>#}
+        {#                    <th>Суббота</th>#}
+        {#                    <th>Воскресенье</th>#}
+        {#                </tr>#}
+        {#                </thead>#}
+        {#                <td>#}
+        {#                    <table class="table">#}
+        {#                        {% for time_lesson in time_lessons %}#}
+        {#                            <tr>#}
+        {#                                <th>{{ time_lesson }}</th>#}
+        {#                            </tr>#}
+        {#                        {% endfor %}#}
+        {#                    </table>#}
+        {#                </td>#}
+        {#                <td>#}
+        {#                    <table class="table">#}
+        {#                        {% for event in monday %}#}
+        {#                            <tr>#}
+        {#                                <td>{% if event.subject %}{{ event.subject }}{% else %}---{% endif %}</td>#}
+        {#                            </tr>#}
+        {#                        {% endfor %}#}
+        {#                    </table>#}
+        {#                </td>#}
+        {##}
+        {#                <td>#}
+        {#                    <table class="table">#}
+        {#                        {% for event in tuesday %}#}
+        {#                            <tr>#}
+        {#                                <td>{% if event.subject %}{{ event.subject }}{% else %}Нет урока{% endif %}</td>#}
+        {#                            </tr>#}
+        {#                        {% endfor %}#}
+        {#                    </table>#}
+        {#                </td>#}
+        {#                <td>#}
+        {#                    <table class="table">#}
+        {#                        {% for event in thursday %}#}
+        {#                            <tr>#}
+        {#                                <td>{% if event.subject %}{{ event.subject }}{% else %}Нет урока{% endif %}</td>#}
+        {#                            </tr>#}
+        {#                        {% endfor %}#}
+        {#                    </table>#}
+        {#                </td>#}
+        {#                <td>#}
+        {#                    <table class="table">#}
+        {#                        {% for event in wednesday%}#}
+        {#                            <tr>#}
+        {#                                <td>{% if event.subject %}{{ event.subject }}{% else %}Нет урока{% endif %}</td>#}
+        {#                            </tr>#}
+        {#                        {% endfor %}#}
+        {#                    </table>#}
+        {#                </td>#}
+        {#                <td>#}
+        {#                    <table class="table">#}
+        {#                        {% for event in friday %}#}
+        {#                            <tr>#}
+        {#                                <td>{% if event.subject %}{{ event.subject }}{% else %}Нет урока{% endif %}</td>#}
+        {#                            </tr>#}
+        {#                        {% endfor %}#}
+        {#                    </table>#}
+        {#                </td>#}
+        {#                <td>#}
+        {#                    <table class="table">#}
+        {#                        {% for event in saturday %}#}
+        {#                            <tr>#}
+        {#                                <td>{% if event.subject %}{{ event.subject }}{% endif %}</td>#}
+        {#                            </tr>#}
+        {#                        {% endfor %}#}
+        {#                    </table>#}
+        {#                </td>#}
+        {#                <td>#}
+        {#                    <table class="table">#}
+        {#                        {% for event in sunday %}#}
+        {#                            <tr>#}
+        {#                                <td>{% if event.subject %}{{ event.subject }}{% else %} {% endif %}</td>#}
+        {#                            </tr>#}
+        {#                        {% endfor %}#}
+        {#                    </table>#}
+        {#                </td>#}
+        {##}
+        {##}
+        {#            </table>#}
+        {#        </div>#}
     </div>
 
 {% endblock %}

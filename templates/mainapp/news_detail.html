@@ -1,15 +1,35 @@
-{% extends 'mainapp/base.html' %}
-{% block title %}Профиль {{ student.get_full_name }} {% endblock %}
+{% extends 'students/base.html' %}
+{% block title %}{{ news.title }} {% endblock %}
 
 {% block content %}
     <div class="container">
-        <h1>{{ object.title }}</h1>
-        <p>{{ object.created }}</p>
-        <img src="{{ object.image.url }}" alt="{{ object.title }}">
-        <hr>
-        <div class="text">
-            {{ object.content|safe }}
+        <h1 class="text-blue text-center">{{ news.title }} </h1>
+        <h3 class="text-orange text-center">{{ news.created }}</h3>
+            <div class="card w-75" style="margin-left: auto; margin-right: auto">
+                <div class="card-img">
+                    <img src="{{ news.image.url }}" class="img-fluid">
+                </div>
+            <div class="card-body bg-white">
+                    <p>{{ news.content|safe}}</p>
+            </div>
         </div>
 
     </div>
+
 {% endblock %}
+
+{#{% extends 'mainapp/base.html' %}#}
+{#{% block title %}Профиль {{ student.get_full_name }} {% endblock %}#}
+{##}
+{#{% block content %}#}
+{#    <div class="container">#}
+{#        <h1>{{ object.title }}</h1>#}
+{#        <p>{{ object.created }}</p>#}
+{#        <img src="{{ object.image.url }}" alt="{{ object.title }}">#}
+{#        <hr>#}
+{#        <div class="text">#}
+{#            {{ object.content|safe }}#}
+{#        </div>#}
+{##}
+{#    </div>#}
+{#{% endblock %}#}
