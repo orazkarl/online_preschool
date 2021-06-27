@@ -1,13 +1,15 @@
 {% extends "account/base.html" %}
+{% load static %}
 {% load i18n %}
 
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
 
 {% block content %}
     <main class="form-signin">
+        <img src="{% static 'img/logo.png' %}" class="img-fluid" width="125px">
         <form method="POST" action="{% url 'account_login' %}">
             {% csrf_token %}
-            <h1 class="h3 mb-3 fw-normal">{% trans "Sign In" %}</h1>
+            <h1 class="h3 mb-3 fw-normal" style="color: #317EEF;">Мой ребенок</h1>
             {% for form_item in form %}
                 {% if form_item.name != 'remember' %}
                 <div class="form-floating">
@@ -16,7 +18,7 @@
                 </div>
                 {% endif %}
             {% endfor %}
-            <button class="w-100 btn btn-lg btn-primary" type="submit">{% trans "Sign In" %}</button>
+            <button class="w-100 btn btn-lg btn-orange" type="submit">{% trans "Sign In" %}</button>
             <p class="mt-3 mb-3 text-muted"><a href="{% url 'account_reset_password' %}" class="">Забыли пароль?</a></p>
         </form>
     </main>

@@ -3,44 +3,38 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=782px, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="Orazali Karl">
     <meta name="generator" content="Hugo 0.83.1">
-    <title>{% block title %}{% endblock %}</title>
+    <title>{% block title %} {% endblock %}</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{% static 'dist/css/bootstrap.min.css' %}" rel="stylesheet">
-
+    <link rel="stylesheet" href="{% static 'css/students.css' %}">
 </head>
 <body>
 
 <div class="container py-3">
-    <header>
-        <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+    <header class="bg-white">
+        <div class=" flex-column flex-md-row align-items-center pb-3">
             <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
                 <span class="fs-4">Мой ребенок</span>
             </a>
-            <div style="margin-left: auto; margin-right: auto;">
-                <a class="btn btn-primary" href="{% url 'news_list' %}">Новости</a>
-                <a class="btn btn-primary" href="{% url 'student_schedule' request.user.student.student_group.id %}">Расписание</a>
-                <a class="btn btn-primary" href="{% url 'student_subjects' %}">Предметы</a>
-            </div>
-            <nav class="mt-2 mt-md-0 ms-md-auto">
 
-                {% if request.user.is_authenticated %}
-                    <a class="btn btn-primary" href="{% url 'student_profile' %}">Профиль студента</a>
-                    <a class="btn btn-danger" href="{% url 'account_logout' %}">Выйти</a>
-                {% else %}
-                    <a class="btn btn-primary" href="{% url 'account_login' %}">Войти</a>
-                {% endif %}
-            </nav>
+        </div>
+        <div style="margin-left: auto; margin-right: auto;">
+            <a class="btn btn-orange" href="{% url 'student_profile' %}">Профиль</a>
+            <a class="btn btn-orange" href="{% url 'news_list' %}">Новости</a>
+            <a class="btn btn-orange" href="{% url 'student_schedule' request.user.student.student_group.id %}">Расписание</a>
+            <a class="btn btn-orange" href="{% url 'student_subjects' %}">Предметы</a>
+            <a class="btn btn-orange" href="{% url 'student_subjects' %}">Настройки</a>
+            <a class="btn btn-danger " href="{% url 'account_logout' %}">Выйти</a>
         </div>
     </header>
-
+    <br>
     <main>
-        {% block content %}
-
+   {% block content %}
         {% endblock %}
     </main>
 </div>

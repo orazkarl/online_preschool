@@ -1,42 +1,16 @@
-{#{% extends 'students/base.html' %}#}
-{#{% block title %}Профиль {{ student.get_full_name }} {% endblock %}#}
-
+{% extends 'students/base.html' %}
 {% load static %}
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=782px, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Orazali Karl">
-    <meta name="generator" content="Hugo 0.83.1">
-    <title>Профиль</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="{% static 'dist/css/bootstrap.min.css' %}" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/students.css' %}">
-</head>
-<body>
+{% block title %}Профиль {{ student.get_full_name }} {% endblock %}
 
-<div class="container py-3">
-    <header>
-        <div class=" flex-column flex-md-row align-items-center pb-3">
-            <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
-                <span class="fs-4">Мой ребенок</span>
-            </a>
+{% block content %}
+    <style>
+    body {
+        background: linear-gradient(rgba(255,255,255,.42), rgba(255,255,255,.42)),url("/static/img/background.png");
 
-        </div>
-        <div style="margin-left: auto; margin-right: auto;">
-            <a class="btn btn-orange" href="{% url 'news_list' %}">Новости</a>
-            <a class="btn btn-orange" href="{% url 'student_schedule' request.user.student.student_group.id %}">Расписание</a>
-            <a class="btn btn-orange" href="{% url 'student_subjects' %}">Предметы</a>
-            <a class="btn btn-orange" href="{% url 'student_subjects' %}">Настройки</a>
-            <a class="btn btn-danger " href="{% url 'account_logout' %}">Выйти</a>
-        </div>
-    </header>
-    <br>
-    <main>
-        <div class="card bg-white" style="padding: 25px;">
+    }
+    </style>
+         <div class="card bg-white" style="padding: 25px;">
             <div class="row">
                 <div class="col-md-2">
                     <div class="student-img">
@@ -150,9 +124,4 @@
         </div>
         <br>
 
-    </main>
-</div>
-
-
-</body>
-</html>
+{% endblock %}

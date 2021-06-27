@@ -1,21 +1,29 @@
+@font-face {
+    font-family: cooper;
+    src: url(/static/fonts/Asylbekm21cooper.Kz.ttf);
+}
+
 html,
 body {
   height: 100%;
+  font-family: cooper;
 }
 
 body {
-  display: flex;
-  align-items: center;
+
   padding-top: 40px;
   padding-bottom: 40px;
-  background-color: #f5f5f5;
+  background-color: #fff;
 }
 
 .form-signin {
+    /*display: flex;*/
+  /*align-items: center;*/
+
   width: 100%;
   max-width: 330px;
   padding: 15px;
-  margin: auto;
+  margin: 80px auto;
 }
 
 .form-signin .checkbox {
@@ -36,4 +44,19 @@ body {
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+}
+
+.btn-orange {
+    background-color: #FF9412;
+    border-color: #FF9412;
+    padding-left: 50px;
+    padding-right: 50px;
+    color: #fff;
+  text-transform: uppercase;
+}
+
+.btn-orange:hover {
+    background-color: #FF9412;
+    color: #fff;
+
 }
