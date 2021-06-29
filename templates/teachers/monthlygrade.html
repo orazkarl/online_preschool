@@ -1,4 +1,6 @@
 {% extends 'teachers/base.html' %}
+{% load mathfilters %}
+
 {% block title %}Поставить ежемесячную оценку для группы "{{ studentgroup.name }}" {% endblock %}
 
 {% block content %}
@@ -10,7 +12,8 @@
                          style="background-color: white; padding: 5px 0 25px 5px; border-radius: 5px">
                         <i class="ik ik-user bg-blue"></i>
                         <div class="d-inline">
-                            <h5>Поставить ежемесячную оценку для группы {{ studentgroup.name }} по "{{ subject.name }}"</h5>
+                            <h5>Поставить ежемесячную оценку для группы {{ studentgroup.name }} по
+                                "{{ subject.name }}"</h5>
                         </div>
                     </div>
                 </div>
@@ -19,53 +22,151 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
-                    <form action="{% url 'teacher_monthlygrade' group_id=studentgroup.id subject_id=subject.id %}" method="post">
+                    <form action="{% url 'teacher_monthlygrade' group_id=studentgroup.id subject_id=subject.id %}"
+                          method="post">
                         {% csrf_token %}
                         <div class="card-body p-0 table-border-style">
-                        <div class="table-responsive" >
                             <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Месяц</th>
-                                        <th>Оценка</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {% for student in students %}
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Сентябрь</th>
+                                            <th>Разница</th>
+                                            <th>Октябрь</th>
+                                            <th>Разница</th>
+                                            <th>Ноябрь</th>
+                                            <th>Разница</th>
+                                            <th>Декабрь</th>
+                                            <th>Разница</th>
+                                            <th>Январь</th>
+                                            <th>Разница</th>
+                                            <th>Февраль</th>
+                                            <th>Разница</th>
+                                            <th>Март</th>
+                                            <th>Разница</th>
+                                            <th>Апрель</th>
+                                            <th>Разница</th>
+                                            <th>Май</th>
+                                            <th>Разница</th>
+                                            <th>Июнь</th>
+                                            <th>Разница</th>
+                                            <th>Июль</th>
+                                            <th>Разница</th>
+                                            <th>Август</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for student in students %}
 
-                                    <tr>
-                                        <td>{{ student.get_full_name }}</td>
-                                        <td>
-                                            <select name="student_{{ student.id }}_month" class="form-control">
-                                                {% if not student.month1 %}<option value="1">Январь</option>{% endif %}
-                                                {% if not student.month2 %}<option value="2">Февраль</option>{% endif %}
-                                                {% if not student.month3 %}<option value="3">Март</option>{% endif %}
-                                                {% if not student.month4 %}<option value="4">Апрель</option>{% endif %}
-                                                {% if not student.month5 %}<option value="5">Май</option>{% endif %}
-                                                {% if not student.month6 %}<option value="6">Июнь</option>{% endif %}
-                                                {% if not student.month7 %}<option value="7">Июль</option>{% endif %}
-                                                {% if not student.month8 %}<option value="8">Август</option>{% endif %}
-                                                {% if not student.month9 %}<option value="9">Сентябрь</option>{% endif %}
-                                                {% if not student.month10 %}<option value="10">Октябрь</option>{% endif %}
-                                                {% if not student.month11 %}<option value="11">Ноябрь</option>{% endif %}
-                                                {% if not student.month12 %}<option value="12">Декабрь</option>{% endif %}
-                                            </select>
-                                        </td>
-                                        <td><input type="number" class="form-control" name="student_{{ student.id }}_grade"></td>
-                                    {% endfor %}
+                                            <tr>
+                                            <td>{{ student.get_full_name }}</td>
+                                            <td>
+                                                <input type="number" class="form-control"
+                                                       name="student_{{ student.id }}_month1"
+                                                       {% if student.month1 %}value="{{ student.month1 }}"{% endif %}>
+                                            </td>
+                                            <td>
+                                                {{ student.month2|sub:student.month1 }}
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control"
+                                                       name="student_{{ student.id }}_month2"
+                                                       {% if student.month2 %}value="{{ student.month2 }}"{% endif %}>
+                                            </td>
+                                            <td>
+                                                {{ student.month3|sub:student.month2 }}
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control"
+                                                       name="student_{{ student.id }}_month3"
+                                                       {% if student.month3 %}value="{{ student.month3 }}"{% endif %}>
+                                            </td>
+                                            <td>
+                                                {{ student.month4|sub:student.month3 }}
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control"
+                                                       name="student_{{ student.id }}_month4"
+                                                       {% if student.month4 %}value="{{ student.month4 }}"{% endif %}>
+                                            </td>
+                                            <td>
+                                                {{ student.month5|sub:student.month4 }}
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control"
+                                                       name="student_{{ student.id }}_month5"
+                                                       {% if student.month5 %}value="{{ student.month5 }}"{% endif %}>
+                                            </td>
+                                            <td>
+                                                {{ student.month6|sub:student.month5 }}
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control"
+                                                       name="student_{{ student.id }}_month6"
+                                                       {% if student.month6 %}value="{{ student.month6 }}"{% endif %}>
+                                            </td>
+                                            <td>
+                                                {{ student.month7|sub:student.month6 }}
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control"
+                                                       name="student_{{ student.id }}_month7"
+                                                       {% if student.month7 %}value="{{ student.month7 }}"{% endif %}>
+                                            </td>
+                                            <td>
+                                                {{ student.month8|sub:student.month7 }}
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control"
+                                                       name="student_{{ student.id }}_month8"
+                                                       {% if student.month8 %}value="{{ student.month8 }}"{% endif %}>
+                                            </td>
+                                            <td>
+                                                {{ student.month9|sub:student.month8 }}
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control"
+                                                       name="student_{{ student.id }}_month9"
+                                                       {% if student.month9 %}value="{{ student.month9 }}"{% endif %}>
+                                            </td>
+                                            <td>
+                                                {{ student.month10|sub:student.month9 }}
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control"
+                                                       name="student_{{ student.id }}_month10"
+                                                       {% if student.month10 %}value="{{ student.month10 }}"{% endif %}>
+                                            </td>
+                                            <td>
+                                                {{ student.month11|sub:student.month10 }}
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control"
+                                                       name="student_{{ student.id }}_month11"
+                                                       {% if student.month11 %}value="{{ student.month11 }}"{% endif %}>
+                                            </td>
+                                            <td>
+                                                {{ student.month12|sub:student.month11 }}
+                                            </td>
+                                            <td>
+                                                <input type="number" class="form-control"
+                                                       name="student_{{ student.id }}_month12"
+                                                       {% if student.month12 %}value="{{ student.month12 }}"{% endif %}>
+                                            </td>
+                                        {% endfor %}
 
 
-                                    </tbody>
+                                        </tbody>
 
-                                </table>
+                                    </table>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="card-footer">
-                        <input type="submit" class="btn btn-primary">
-                    </div>
+                        <div class="card-footer">
+                            <input type="submit" class="btn btn-primary">
+                        </div>
                     </form>
                 </div>
             </div>

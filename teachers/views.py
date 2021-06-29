@@ -112,33 +112,23 @@ class MonthlyGradeView(generic.TemplateView):
     def get(self, request, *args, **kwargs):
         studentgroup = StudentGroup.objects.get(id=self.kwargs['group_id'])
         subject = Subject.objects.get(id=self.kwargs['subject_id'])
-        month1 = MonthlyGrade.objects.filter(student=OuterRef('pk'), subject=subject, month='1')
-        month2 = MonthlyGrade.objects.filter(student=OuterRef('pk'), subject=subject, month='2')
-        month3 = MonthlyGrade.objects.filter(student=OuterRef('pk'), subject=subject, month='3')
-        month4 = MonthlyGrade.objects.filter(student=OuterRef('pk'), subject=subject, month='4')
-        month5 = MonthlyGrade.objects.filter(student=OuterRef('pk'), subject=subject, month='5')
-        month6 = MonthlyGrade.objects.filter(student=OuterRef('pk'), subject=subject, month='6')
-        month7 = MonthlyGrade.objects.filter(student=OuterRef('pk'), subject=subject, month='7')
-        month8 = MonthlyGrade.objects.filter(student=OuterRef('pk'), subject=subject, month='8')
-        month9 = MonthlyGrade.objects.filter(student=OuterRef('pk'), subject=subject, month='9')
-        month10 = MonthlyGrade.objects.filter(student=OuterRef('pk'), subject=subject, month='10')
-        month11 = MonthlyGrade.objects.filter(student=OuterRef('pk'), subject=subject, month='11')
-        month12 = MonthlyGrade.objects.filter(student=OuterRef('pk'), subject=subject, month='12')
+        monthly_grades = MonthlyGrade.objects.filter(student=OuterRef('pk'), subject=subject)
         students = studentgroup.students.all().annotate(
-            month1=Exists(month1),
-            month2=Exists(month2),
-            month3=Exists(month3),
-            month4=Exists(month4),
-            month5=Exists(month5),
-            month6=Exists(month6),
-            month7=Exists(month7),
-            month8=Exists(month8),
-            month9=Exists(month9),
-            month10=Exists(month10),
-            month11=Exists(month11),
-            month12=Exists(month12),
+            month1=Subquery(monthly_grades.filter(month='1').values('grade')),
+            month2=Subquery(monthly_grades.filter(month='2').values('grade')),
+            month3=Subquery(monthly_grades.filter(month='3').values('grade')),
+            month4=Subquery(monthly_grades.filter(month='4').values('grade')),
+            month5=Subquery(monthly_grades.filter(month='5').values('grade')),
+            month6=Subquery(monthly_grades.filter(month='6').values('grade')),
+            month7=Subquery(monthly_grades.filter(month='7').values('grade')),
+            month8=Subquery(monthly_grades.filter(month='8').values('grade')),
+            month9=Subquery(monthly_grades.filter(month='9').values('grade')),
+            month10=Subquery(monthly_grades.filter(month='10').values('grade')),
+            month11=Subquery(monthly_grades.filter(month='11').values('grade')),
+            month12=Subquery(monthly_grades.filter(month='12').values('grade')),
         )
-        print(students.first().month1)
+
+        print(students[0].month1)
         self.extra_context = {
             'studentgroup': studentgroup,
             'subject': subject,
@@ -151,15 +141,125 @@ class MonthlyGradeView(generic.TemplateView):
         subject = Subject.objects.get(id=self.kwargs['subject_id'])
 
         for student in studentgroup.students.all():
-            month = request.POST['student_' + str(student.id) + '_month']
-            grade = request.POST['student_' + str(student.id) + '_grade']
-            MonthlyGrade.objects.update_or_create(
-                month=month,
-                subject=subject,
-                student=student,
-                defaults={
-                    'grade': grade
-                }
-            )
+            month1 = request.POST['student_' + str(student.id) + '_month1']
+            month2 = request.POST['student_' + str(student.id) + '_month2']
+            month3 = request.POST['student_' + str(student.id) + '_month3']
+            month4 = request.POST['student_' + str(student.id) + '_month4']
+            month5 = request.POST['student_' + str(student.id) + '_month5']
+            month6 = request.POST['student_' + str(student.id) + '_month6']
+            month7 = request.POST['student_' + str(student.id) + '_month7']
+            month8 = request.POST['student_' + str(student.id) + '_month8']
+            month9 = request.POST['student_' + str(student.id) + '_month9']
+            month10 = request.POST['student_' + str(student.id) + '_month10']
+            month11 = request.POST['student_' + str(student.id) + '_month11']
+            month12 = request.POST['student_' + str(student.id) + '_month12']
+            if month1:
+                MonthlyGrade.objects.update_or_create(
+                    month='1',
+                    subject=subject,
+                    student=student,
+                    defaults={
+                        'grade': month1
+                    }
+                )
+            if month2:
+                MonthlyGrade.objects.update_or_create(
+                    month='2',
+                    subject=subject,
+                    student=student,
+                    defaults={
+                        'grade': month2
+                    }
+                )
+            if month3:
+                MonthlyGrade.objects.update_or_create(
+                    month='3',
+                    subject=subject,
+                    student=student,
+                    defaults={
+                        'grade': month3
+                    }
+                )
+            if month4:
+                MonthlyGrade.objects.update_or_create(
+                    month='4',
+                    subject=subject,
+                    student=student,
+                    defaults={
+                        'grade': month4
+                    }
+                )
+            if month5:
+                MonthlyGrade.objects.update_or_create(
+                    month='5',
+                    subject=subject,
+                    student=student,
+                    defaults={
+                        'grade': month5
+                    }
+                )
+            if month6:
+                MonthlyGrade.objects.update_or_create(
+                    month='6',
+                    subject=subject,
+                    student=student,
+                    defaults={
+                        'grade': month6
+                    }
+                )
+            if month7:
+                MonthlyGrade.objects.update_or_create(
+                    month='7',
+                    subject=subject,
+                    student=student,
+                    defaults={
+                        'grade': month7
+                    }
+                )
+            if month8:
+                MonthlyGrade.objects.update_or_create(
+                    month='8',
+                    subject=subject,
+                    student=student,
+                    defaults={
+                        'grade': month8
+                    }
+                )
+            if month9:
+                MonthlyGrade.objects.update_or_create(
+                    month='9',
+                    subject=subject,
+                    student=student,
+                    defaults={
+                        'grade': month9
+                    }
+                )
+            if month10:
+                MonthlyGrade.objects.update_or_create(
+                    month='10',
+                    subject=subject,
+                    student=student,
+                    defaults={
+                        'grade': month10
+                    }
+                )
+            if month11:
+                MonthlyGrade.objects.update_or_create(
+                    month='11',
+                    subject=subject,
+                    student=student,
+                    defaults={
+                        'grade': month11
+                    }
+                )
+            if month12:
+                MonthlyGrade.objects.update_or_create(
+                    month='12',
+                    subject=subject,
+                    student=student,
+                    defaults={
+                        'grade': month12
+                    }
+                )
 
         return redirect(reverse('teacher_studentgroupdetail', kwargs={'group_id': studentgroup.id, 'subject_id': subject.id}))
