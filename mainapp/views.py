@@ -16,8 +16,7 @@ class HomeView(generic.TemplateView):
                 return redirect('teacher_profile')
             elif request.user.is_superuser:
                 return redirect('/admin')
-            return redirect('news_list')
-        return redirect('account_login')
+        return redirect('account_inactive')
 
 class NewsListView(generic.ListView):
     model = News

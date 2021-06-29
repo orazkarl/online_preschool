@@ -100,3 +100,9 @@ class SendHomeWorkView(generic.TemplateView):
 
 class GradesView(generic.TemplateView):
     template_name = 'students/grades.html'
+
+
+@method_decorator([login_required, user_passes_test(is_student, login_url='/')], name='dispatch')
+class SettingsView(generic.TemplateView):
+    template_name = 'students/settings.html'
+

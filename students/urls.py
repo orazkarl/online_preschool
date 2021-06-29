@@ -9,6 +9,7 @@ urlpatterns = [
     path('subjects/', views.SubjectListView.as_view(), name='student_subjects'),
     path('subjects/<int:pk>/', views.SubjectDetailView.as_view(), name='student_subject_detail'),
     path('homework/<int:pk>/', views.SendHomeWorkView.as_view(), name='student_homework'),
+    path('settings/', views.SettingsView.as_view(), name='student_settings'),
 
     path('grades/', views.GradesView.as_view(), name='student_grades'),
 ]
