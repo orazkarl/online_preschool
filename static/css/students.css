@@ -9,6 +9,8 @@ body {
     background-repeat: repeat;
     font-family: cooper;
      background-color: #ECEFF8;
+      touch-action: pan-y;
+
 }
 
 .header-orange-box {
