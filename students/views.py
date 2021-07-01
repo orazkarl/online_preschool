@@ -1,4 +1,4 @@
-from django.db.models import Count
+from django.db.models import Count, OuterRef, Subquery
 from django.shortcuts import redirect
 from django.urls import reverse
 from django.views import generic
@@ -6,7 +6,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
 
-from teachers.models import Lesson, Subject, HomeWorkStudent, HomeWork, Grade
+from teachers.models import Lesson, Subject, HomeWorkStudent, HomeWork, Grade, MonthlyGrade
 from .models import Schedule, EventSchedule, TimeLesson, StudentGroup
 from .utils import is_student
 
@@ -97,10 +97,33 @@ class SendHomeWorkView(generic.TemplateView):
         subject = homework.lesson.subject
         return redirect(reverse('student_subject_detail', kwargs={'pk': subject.id}))
 
+@method_decorator([login_required, user_passes_test(is_student, login_url='/')], name='dispatch')
+class MonthlyGradesView(generic.TemplateView):
+    template_name = 'students/monthlygrades.html'
 
-class GradesView(generic.TemplateView):
-    template_name = 'students/grades.html'
-
+    def get(self, request, *args, **kwargs):
+        studentgroup = request.user.student.student_group
+        subject = Subject.objects.get(id=self.kwargs['pk'])
+        monthly_grades = MonthlyGrade.objects.filter(student=OuterRef('pk'), subject=subject)
+        students = studentgroup.students.all().annotate(
+            month1=Subquery(monthly_grades.filter(month='1').values('grade')),
+            month2=Subquery(monthly_grades.filter(month='2').values('grade')),
+            month3=Subquery(monthly_grades.filter(month='3').values('grade')),
+            month4=Subquery(monthly_grades.filter(month='4').values('grade')),
+            month5=Subquery(monthly_grades.filter(month='5').values('grade')),
+            month6=Subquery(monthly_grades.filter(month='6').values('grade')),
+            month7=Subquery(monthly_grades.filter(month='7').values('grade')),
+            month8=Subquery(monthly_grades.filter(month='8').values('grade')),
+            month9=Subquery(monthly_grades.filter(month='9').values('grade')),
+            month10=Subquery(monthly_grades.filter(month='10').values('grade')),
+            month11=Subquery(monthly_grades.filter(month='11').values('grade')),
+            month12=Subquery(monthly_grades.filter(month='12').values('grade')),
+        )
+        self.extra_context = {
+            'subject': subject,
+            'students': students,
+        }
+        return super().get(request, *args, **kwargs)
 
 @method_decorator([login_required, user_passes_test(is_student, login_url='/')], name='dispatch')
 class SettingsView(generic.TemplateView):

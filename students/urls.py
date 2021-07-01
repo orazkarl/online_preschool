@@ -11,5 +11,5 @@ urlpatterns = [
     path('homework/<int:pk>/', views.SendHomeWorkView.as_view(), name='student_homework'),
     path('settings/', views.SettingsView.as_view(), name='student_settings'),
 
-    path('grades/', views.GradesView.as_view(), name='student_grades'),
+    path('subjects/<int:pk>/monthly-grades/', views.MonthlyGradesView.as_view(), name='student_monthly_grades'),
 ]

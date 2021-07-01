@@ -13,7 +13,7 @@
                     <h3 class="text-blue">{{ subject.teacher }}</h3>
                     <br>
                     <a href="{% url 'student_subject_detail' subject.id %} " class="btn btn-orange">Посмотреть</a>
-                    <a href="{% url 'student_subject_detail' subject.id %} " class="btn btn-orange">Контрольная оценка</a>
+                    <a href="{% url 'student_monthly_grades' subject.id %} " class="btn btn-orange">Контрольная оценка</a>
                 </div>
             </div>
             <br>

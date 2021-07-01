@@ -1,0 +1,126 @@
+{% extends 'students/base.html' %}
+{% load mathfilters %}
+
+{% block title %}Контрольная оценка {% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="text-blue text-center">Контрольная оценка для предмета {{ subject.name }}</h1>
+        <br>
+        <div class="card">
+            <div class="table" style="overflow: scroll">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Сентябрь</th>
+                        <th>Разница</th>
+                        <th>Октябрь</th>
+                        <th>Разница</th>
+                        <th>Ноябрь</th>
+                        <th>Разница</th>
+                        <th>Декабрь</th>
+                        <th>Разница</th>
+                        <th>Январь</th>
+                        <th>Разница</th>
+                        <th>Февраль</th>
+                        <th>Разница</th>
+                        <th>Март</th>
+                        <th>Разница</th>
+                        <th>Апрель</th>
+                        <th>Разница</th>
+                        <th>Май</th>
+                        <th>Разница</th>
+                        <th>Июнь</th>
+                        <th>Разница</th>
+                        <th>Июль</th>
+                        <th>Разница</th>
+                        <th>Август</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                                        {% for student in students %}
+
+                                            <tr>
+                                            <td>{{ student.get_full_name }}</td>
+                                            <td>
+                                                {{ student.month1|default_if_none:"" }}
+                                            </td>
+                                            <td>
+                                                {{ student.month2|sub:student.month1 }}
+                                            </td>
+                                            <td>
+                                                {{ student.month2|default_if_none:"" }}
+                                            </td>
+                                            <td>
+                                                {{ student.month3|sub:student.month2 }}
+                                            </td>
+                                            <td>
+                                                {{ student.month3|default_if_none:"" }}
+                                            </td>
+                                            <td>
+                                                {{ student.month4|sub:student.month3 }}
+                                            </td>
+                                            <td>
+                                                {{ student.month4|default_if_none:"" }}
+                                            </td>
+                                            <td>
+                                                {{ student.month5|sub:student.month4 }}
+                                            </td>
+                                            <td>
+                                                {{ student.month5|default_if_none:"" }}
+                                            </td>
+                                            <td>
+                                                {{ student.month6|sub:student.month5 }}
+                                            </td>
+                                            <td>
+                                                {{ student.month6|default_if_none:"" }}
+                                            </td>
+                                            <td>
+                                                {{ student.month7|sub:student.month6 }}
+                                            </td>
+                                            <td>
+                                                {{ student.month7|default_if_none:"" }}
+                                            </td>
+                                            <td>
+                                                {{ student.month8|sub:student.month7 }}
+                                            </td>
+                                            <td>
+                                                {{ student.month8|default_if_none:"" }}
+                                            </td>
+                                            <td>
+                                                {{ student.month9|sub:student.month8 }}
+                                            </td>
+                                           <td>
+                                                {{ student.month9|default_if_none:"" }}
+                                            </td>
+                                            <td>
+                                                {{ student.month10|sub:student.month9 }}
+                                            </td>
+                                            <td>
+                                                {{ student.month10|default_if_none:"" }}
+                                            </td>
+                                            <td>
+                                                {{ student.month11|sub:student.month10 }}
+                                            </td>
+                                            <td>
+                                                {{ student.month11|default_if_none:"" }}
+                                            </td>
+                                            <td>
+                                                {{ student.month12|sub:student.month11 }}
+                                            </td>
+                                            <td>
+                                                {{ student.month12|default_if_none:"" }}
+                                            </td>
+                                        {% endfor %}
+
+
+                                        </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+    </div>
+
+{% endblock %}
