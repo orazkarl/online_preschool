@@ -53,9 +53,9 @@
                 </div>
                 <div class="col-md-7">
                     <h5 class="text-orange student-status">статус:</h5>
-                    <h6 class="text-blue student-status-value">Супер</h6>
+                    <h6 class="text-blue student-status-value">{{ student.student.get_ru_status }} </h6>
                     <h5 class="text-orange student-grade">Общий балл</h5>
-                    <h1 class="text-blue student-grade-value">{{ total }} б</h1>
+                    <h1 class="text-blue student-grade-value">{{ student.student.get_total_grades }} б</h1>
                 </div>
             </div>
             <div style="margin-left: auto; margin-right: auto; text-align: center">

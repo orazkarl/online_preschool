@@ -1,0 +1,24 @@
+{% extends 'students/base.html' %}
+{% block title %}Дом задании {% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="text-blue text-center">Дом задании для {{ studentgroup.name }}</h1>
+        <br>
+        <div class="list-group" style="margin-right: auto; margin-left: auto">
+        {% for homework in object_list %}
+            <div class="card bg-white" style="padding: 25px">
+                <div class="card-body">
+                    <h1 class="text-blue">{{ homework.subject.name }} </h1>
+                    <p class="text-blue">Дата{{ homework.date }}</p>
+                    <p>{{ homework.content|safe }}</p>
+
+
+                </div>
+            </div>
+            <br>
+        {% endfor %}
+    </div>
+    </div>
+
+{% endblock %}

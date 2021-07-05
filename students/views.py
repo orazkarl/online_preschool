@@ -1,13 +1,11 @@
-from django.db.models import Count, OuterRef, Subquery
-from django.shortcuts import redirect
-from django.urls import reverse
+from django.db.models import OuterRef, Subquery
 from django.views import generic
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
 
-from teachers.models import Lesson, Subject, HomeWorkStudent, HomeWork, Grade, MonthlyGrade
-from .models import Schedule, EventSchedule, TimeLesson, StudentGroup
+from teachers.models import  Subject, Grade, MonthlyGrade, HomeWork
+from .models import  EventSchedule, TimeLesson, StudentGroup
 from .utils import is_student
 
 
@@ -79,25 +77,6 @@ class SubjectDetailView(generic.DetailView):
 
 
 @method_decorator([login_required, user_passes_test(is_student, login_url='/')], name='dispatch')
-class SendHomeWorkView(generic.TemplateView):
-    template_name = 'students/homework.html'
-
-    def get(self, request, *args, **kwargs):
-        homework = HomeWork.objects.get(id=self.kwargs.get('pk'))
-        self.extra_context = {
-            'homework': homework,
-        }
-        return super().get(request, *args, **kwargs)
-
-    def post(self, request, *args, **kwargs):
-        homework = HomeWork.objects.get(id=self.kwargs.get('pk'))
-        student = request.user.student
-        file = request.FILES['file']
-        HomeWorkStudent.objects.create(homework=homework, student=student, file=file)
-        subject = homework.lesson.subject
-        return redirect(reverse('student_subject_detail', kwargs={'pk': subject.id}))
-
-@method_decorator([login_required, user_passes_test(is_student, login_url='/')], name='dispatch')
 class MonthlyGradesView(generic.TemplateView):
     template_name = 'students/monthlygrades.html'
 
@@ -124,6 +103,20 @@ class MonthlyGradesView(generic.TemplateView):
             'students': students,
         }
         return super().get(request, *args, **kwargs)
+
+
+class HomeWorksView(generic.ListView):
+    model = HomeWork
+    template_name = 'students/homeworks.html'
+
+    def get(self, request, *args, **kwargs):
+        studentgroup = request.user.student.student_group
+        self.queryset = HomeWork.objects.filter(student_group=studentgroup)
+        self.extra_context = {
+            'studentgroup': studentgroup
+        }
+        return super().get(request, *args, **kwargs)
+
 
 @method_decorator([login_required, user_passes_test(is_student, login_url='/')], name='dispatch')
 class SettingsView(generic.TemplateView):

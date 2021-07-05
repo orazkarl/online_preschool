@@ -1,5 +1,5 @@
 {% extends 'teachers/base.html' %}
-{% block title %}Добавить урок и дом задание {% endblock %}
+{% block title %}Добавить урок{% endblock %}
 
 {% block content %}
     <div class="container-fluid">
@@ -10,7 +10,7 @@
                          style="background-color: white; padding: 5px 0 25px 5px; border-radius: 5px">
                         <i class="ik ik-clipboard bg-blue"></i>
                         <div class="d-inline">
-                            <h5>Добавить урок и дом задание</h5>
+                            <h5>Добавить урок</h5>
                         </div>
                     </div>
                 </div>
@@ -44,19 +44,6 @@
                                 <input type="date" name="date" class="form-control" required>
                             </div>
                             <hr>
-                            <h3>Дом задание</h3>
-                            <div class="form-group">
-                                <label class="form-label">Название</label>
-                                <input type="text" name="homework_name" maxlength="255" placeholder="Название"
-                                       class="form-control" required>
-                            </div>
-                            <br>
-                            <div class="form-group">
-                                <label class="form-label">Описание</label>
-                                <textarea name="homework_description" cols="30" rows="5" class="form-control"
-                                          placeholder="Описание" required></textarea>
-                            </div>
-                            <br>
                             <input type="submit" class="btn btn-primary">
                         </form>
 

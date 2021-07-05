@@ -1,20 +1,21 @@
 from django.contrib import admin
 
-from .models import Subject, StudentGroup, Lesson, HomeWork, HomeWorkStudent, Grade, MonthlyGrade
+from .models import Subject, StudentGroup, HomeWork
 
 
 admin.site.register(Subject)
-admin.site.register(Lesson)
-admin.site.register(HomeWork)
-admin.site.register(HomeWorkStudent)
-admin.site.register(Grade)
-admin.site.register(MonthlyGrade)
 
 
 @admin.register(StudentGroup)
 class StudentGroupAdmin(admin.ModelAdmin):
     list_display = ['name']
     filter_horizontal = ('subjects',)
+
+
+@admin.register(HomeWork)
+class HomeWorkAdmin(admin.ModelAdmin):
+    list_display = ['student_group', 'subject', 'date']
+    list_filter = ('subject', 'student_group__name',)
 
 
 

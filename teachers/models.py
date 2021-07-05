@@ -1,3 +1,4 @@
+from ckeditor.fields import RichTextField
 from django.db import models
 from django.urls import reverse
 
@@ -46,30 +47,30 @@ class Lesson(models.Model):
         return self.name
 
 
-class HomeWork(models.Model):
-    lesson = models.OneToOneField(Lesson, on_delete=models.CASCADE, related_name='homework', verbose_name='Урок')
-    name = models.CharField(max_length=255, verbose_name='Название дом задание')
-    description = models.TextField(verbose_name='Описание дом задание', null=True, blank=True)
-
-    class Meta:
-        verbose_name = 'Дом. задание'
-        verbose_name_plural = 'Дом. задании'
-
-    def __str__(self):
-        return self.name
-
-
-class HomeWorkStudent(models.Model):
-    homework = models.ForeignKey(HomeWork, on_delete=models.CASCADE, related_name='homework_students', verbose_name='ДЗ')
-    student = models.ForeignKey('userapp.Student', on_delete=models.CASCADE, related_name='homework_students', verbose_name='Студент')
-    file = models.FileField(upload_to='homework_students')
-
-    def __str__(self):
-        return f"{self.homework.name} - {self.student.get_full_name()}"
-
-    class Meta:
-        verbose_name = 'ДЗ Студента'
-        verbose_name_plural = 'ДЗ Студента'
+# class HomeWork(models.Model):
+#     lesson = models.OneToOneField(Lesson, on_delete=models.CASCADE, related_name='homework', verbose_name='Урок')
+#     name = models.CharField(max_length=255, verbose_name='Название дом задание')
+#     description = models.TextField(verbose_name='Описание дом задание', null=True, blank=True)
+#
+#     class Meta:
+#         verbose_name = 'Дом. задание'
+#         verbose_name_plural = 'Дом. задании'
+#
+#     def __str__(self):
+#         return self.name
+#
+#
+# class HomeWorkStudent(models.Model):
+#     homework = models.ForeignKey(HomeWork, on_delete=models.CASCADE, related_name='homework_students', verbose_name='ДЗ')
+#     student = models.ForeignKey('userapp.Student', on_delete=models.CASCADE, related_name='homework_students', verbose_name='Студент')
+#     file = models.FileField(upload_to='homework_students')
+#
+#     def __str__(self):
+#         return f"{self.homework.name} - {self.student.get_full_name()}"
+#
+#     class Meta:
+#         verbose_name = 'ДЗ Студента'
+#         verbose_name_plural = 'ДЗ Студента'
 
 
 class Grade(models.Model):
@@ -124,3 +125,17 @@ class MonthlyGrade(models.Model):
         verbose_name = 'Месячная оценка'
         verbose_name_plural = 'Месячная оценка'
 
+
+class HomeWork(models.Model):
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, verbose_name='Предмет',related_name='homeworks')
+    student_group = models.ForeignKey(StudentGroup, on_delete=models.CASCADE, verbose_name='Группа',related_name='homeworks')
+    date = models.DateField(verbose_name='Дата')
+    content = RichTextField(verbose_name='ДЗ')
+
+    class Meta:
+        unique_together = ('subject', 'student_group')
+        verbose_name = 'Дом задание'
+        verbose_name_plural = 'Дом задании'
+
+    def __str__(self):
+        return f"ДЗ группы {self.student_group.name} для предмета {self.subject}"

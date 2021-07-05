@@ -35,13 +35,13 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        {% for student in studentgroup.students.all %}
+                                        {% for student in students %}
                                             <tr>
                                                 <td>{{ forloop.counter }}</td>
                                                 <td>{{ student.get_full_name }}</td>
-                                                <td><input type="checkbox" name="{{ student.id }}__is_lesson"></td>
-                                                <td><input type="checkbox" name="{{ student.id }}__is_homework"></td>
-                                                <td><input type="checkbox" name="{{ student.id }}__is_behavior"></td>
+                                                <td><input type="checkbox" name="{{ student.id }}__is_lesson" {% if student.is_lesson %}checked{% endif %}></td>
+                                                <td><input type="checkbox" name="{{ student.id }}__is_homework" {% if student.is_homework %}checked{% endif %}></td>
+                                                <td><input type="checkbox" name="{{ student.id }}__is_behavior" {% if student.is_behavior %}checked{% endif %}></td>
                                             </tr>
                                         {% endfor %}
                                         </tbody>

@@ -6,7 +6,7 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
 
-from .models import Subject, StudentGroup, Lesson, HomeWork, Grade, MonthlyGrade
+from .models import Subject, StudentGroup, Lesson, Grade, MonthlyGrade
 from .utils import is_teacher
 
 
@@ -20,6 +20,7 @@ class TeacherProfileView(generic.TemplateView):
             'teacher': teacher,
         }
         return super().get(request, *args, **kwargs)
+
 
 @method_decorator([login_required, user_passes_test(is_teacher, login_url='/')], name='dispatch')
 class StudentGroupListView(generic.ListView):
@@ -67,11 +68,9 @@ class LessonCreateView(generic.TemplateView):
         name = request.POST['name']
         description = request.POST['description']
         date = request.POST['date']
-        homework_name = request.POST['homework_name']
-        homework_description = request.POST['homework_description']
-        lesson = Lesson.objects.create(subject_id=subject, student_group_id=studentgroup, name=name, description=description, date=date)
-        HomeWork.objects.create(lesson=lesson, name=homework_name, description=homework_description)
+        Lesson.objects.create(subject_id=subject, student_group_id=studentgroup, name=name, description=description, date=date)
         return redirect(reverse('teacher_studentgroupdetail', kwargs={'group_id': int(studentgroup), 'subject_id': int(subject)}))
+
 
 @method_decorator([login_required, user_passes_test(is_teacher, login_url='/')], name='dispatch')
 class StudentGroupGradeView(generic.TemplateView):
@@ -80,9 +79,17 @@ class StudentGroupGradeView(generic.TemplateView):
     def get(self, request, *args, **kwargs):
         lesson = Lesson.objects.get(id=self.kwargs.get('lesson_id'))
         studentgroup = lesson.student_group
+        students = studentgroup.students.all()
+        grades = Grade.objects.filter(student=OuterRef('pk'), lesson=lesson)
+        students = studentgroup.students.all().annotate(
+            is_lesson=Subquery(grades.values('is_lesson')),
+            is_homework=Subquery(grades.values('is_homework')),
+            is_behavior=Subquery(grades.values('is_behavior')),
+        )
         self.extra_context = {
             'lesson':lesson,
             'studentgroup': studentgroup,
+            'students': students,
         }
         return super().get(request, *args, **kwargs)
 
@@ -101,7 +108,13 @@ class StudentGroupGradeView(generic.TemplateView):
                 is_homework = True
             if str(student.id) + '__is_behavior' in request.POST:
                 is_behavior = True
-            Grade.objects.create(lesson=lesson, student=student, is_lesson=is_lesson, is_homework=is_homework, is_behavior=is_behavior)
+            Grade.objects.update_or_create(lesson=lesson,
+                                           student=student,
+                                           defaults={
+                                               'is_lesson': is_lesson,
+                                               'is_homework': is_homework,
+                                                'is_behavior': is_behavior}
+                                           )
         return redirect(
             reverse('teacher_studentgroupdetail', kwargs={'group_id': studentgroup.id, 'subject_id': subject.id}))
 
@@ -127,8 +140,6 @@ class MonthlyGradeView(generic.TemplateView):
             month11=Subquery(monthly_grades.filter(month='11').values('grade')),
             month12=Subquery(monthly_grades.filter(month='12').values('grade')),
         )
-
-        print(students[0].month1)
         self.extra_context = {
             'studentgroup': studentgroup,
             'subject': subject,

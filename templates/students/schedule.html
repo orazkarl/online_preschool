@@ -4,18 +4,21 @@
 {% block content %}
     <div class="container">
         <h1 class="text-blue text-center">Расписание для группы "{{ student_group }}"</h1>
-        <div class="card w-75" style="margin-left: auto; margin-right: auto">
-            <div class="card-header">
-                <h2 class="text-blue">Понодельник</h2>
+        {% if monday %}
+            <div class="card w-75" style="margin-left: auto; margin-right: auto">
+                <div class="card-header">
+                    <h2 class="text-blue">Понодельник</h2>
+                </div>
+                <div class="card-body bg-white">
+                    {% for event in monday %}
+                        <h3 class="text-orange">{{ event.time_lesson }} |
+                            {% if event.subject %}{{ event.subject }}{% else %}---{% endif %}</h3>
+                    {% endfor %}
+                </div>
             </div>
-            <div class="card-body bg-white">
-                {% for event in monday %}
-                    <h3 class="text-orange">{{ event.time_lesson }} |
-                        {% if event.subject %}{{ event.subject }}{% else %}---{% endif %}</h3>
-                {% endfor %}
-            </div>
-        </div>
-        <br>
+            <br>
+        {% endif %}
+        {% if tuesday %}
         <div class="card w-75" style="margin-left: auto; margin-right: auto">
             <div class="card-header">
                 <h2 class="text-blue">Вторник</h2>
@@ -28,6 +31,8 @@
             </div>
         </div>
         <br>
+    {% endif %}
+        {% if wednesday %}
         <div class="card w-75" style="margin-left: auto; margin-right: auto">
             <div class="card-header">
                 <h2 class="text-blue">Среда</h2>
@@ -40,6 +45,8 @@
             </div>
         </div>
         <br>
+    {% endif %}
+        {% if thursday %}
         <div class="card w-75" style="margin-left: auto; margin-right: auto">
             <div class="card-header">
                 <h2 class="text-blue">Четверг</h2>
@@ -52,6 +59,8 @@
             </div>
         </div>
         <br>
+    {% endif %}
+        {% if friday %}
         <div class="card w-75" style="margin-left: auto; margin-right: auto">
             <div class="card-header">
                 <h2 class="text-blue">Пятница</h2>
@@ -63,6 +72,22 @@
                 {% endfor %}
             </div>
         </div>
+        <br>
+    {% endif %}
+        {% if saturday %}
+    <div class="card w-75" style="margin-left: auto; margin-right: auto">
+            <div class="card-header">
+                <h2 class="text-blue">Суббота</h2>
+            </div>
+            <div class="card-body bg-white">
+                {% for event in saturday %}
+                    <h3 class="text-orange">{{ event.time_lesson }} |
+                        {% if event.subject %}{{ event.subject }}{% else %}---{% endif %}</h3>
+                {% endfor %}
+            </div>
+        </div>
+        <br>
+    {% endif %}
     </div>
 
 {% endblock %}
