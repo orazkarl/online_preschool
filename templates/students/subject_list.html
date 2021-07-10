@@ -1,9 +1,11 @@
-{% extends 'students/base.html' %}
-{% block title %}Предметы {% endblock %}
+{% extends 'students/base.html' %}\
+{% load i18n %}
+
+{% block title %}{% trans 'Предметы' %} {% endblock %}
 
 {% block content %}
     <div class="container">
-        <h1 class="text-blue text-center">Предметы</h1>
+        <h1 class="text-blue text-center">{% trans 'Предметы' %}</h1>
         <br>
         <div class="list-group" style="margin-right: auto; margin-left: auto">
         {% for subject in object_list %}
@@ -13,7 +15,7 @@
                     <h3 class="text-blue">{{ subject.teacher }}</h3>
                     <br>
 
-                    <a href="{% url 'student_monthly_grades' subject.id %} " class="btn btn-orange">Контрольная оценка</a>
+                    <a href="{% url 'student_monthly_grades' subject.id %} " class="btn btn-orange">{% trans 'Контрольная оценка' %}</a>
                 </div>
             </div>
             <br>

@@ -1,7 +1,9 @@
 {% extends 'students/base.html' %}
 {% load static %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
 
-{% block title %}Профиль {{ student.get_full_name }} {% endblock %}
+{% block title %}{% trans 'Профиль' %} {{ student.get_full_name }} {% endblock %}
 
 {% block content %}
          <div class="card bg-white" style="padding: 25px;">
@@ -14,7 +16,7 @@
                 <div class="col-md-10 col-sm-12">
                     <h1 class="student-name">{{ student.get_full_name }}</h1>
                     <br>
-                    <h3 class="student-info">{{ student.dob }}</h3>
+                    <h3 class="student-info">{{ student.dob|date:"d.m.Y" }}</h3>
                     <h3 class="student-info">{{ student.student.student_group.name }}</h3>
                 </div>
             </div>
@@ -53,14 +55,20 @@
                 </div>
                 <div class="col-md-7">
                     <h5 class="text-orange student-status">статус:</h5>
-                    <h6 class="text-blue student-status-value">{{ student.student.get_ru_status }} </h6>
-                    <h5 class="text-orange student-grade">Общий балл</h5>
+                    <h6 class="text-blue student-status-value">
+                        {% if LANGUAGE_CODE == 'ru' %}
+                            {{ student.student.get_ru_status }}
+                        {% else %}
+                            {{ student.student.get_kk_status }}
+                        {% endif %}
+                    </h6>
+                    <h5 class="text-orange student-grade">{% trans 'Общий балл' %}</h5>
                     <h1 class="text-blue student-grade-value">{{ student.student.get_total_grades }} б</h1>
                 </div>
             </div>
             <div style="margin-left: auto; margin-right: auto; text-align: center">
                 <div style="">
-                    <a class="btn btn-orange" href="{% url 'student_subjects' %}">Посмореть контрольную оценку</a>
+                    <a class="btn btn-orange" href="{% url 'student_subjects' %}">{% trans 'Посмореть контрольную оценку' %}</a>
                 </div>
             </div>
         </div>

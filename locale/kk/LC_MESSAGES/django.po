@@ -1,0 +1,407 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-07-10 14:56+0600\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+
+#: templates/account/account_inactive.html:5
+#: templates/account/account_inactive.html:9
+msgid "Account Inactive"
+msgstr ""
+
+#: templates/account/account_inactive.html:10
+msgid "This account is inactive."
+msgstr ""
+
+#: templates/account/email.html:5 templates/account/email.html:8
+msgid "E-mail Addresses"
+msgstr ""
+
+#: templates/account/email.html:10
+msgid "The following e-mail addresses are associated with your account:"
+msgstr ""
+
+#: templates/account/email.html:24
+msgid "Verified"
+msgstr ""
+
+#: templates/account/email.html:26
+msgid "Unverified"
+msgstr ""
+
+#: templates/account/email.html:28
+msgid "Primary"
+msgstr ""
+
+#: templates/account/email.html:34
+msgid "Make Primary"
+msgstr ""
+
+#: templates/account/email.html:35
+msgid "Re-send Verification"
+msgstr ""
+
+#: templates/account/email.html:36
+msgid "Remove"
+msgstr ""
+
+#: templates/account/email.html:43
+msgid "Warning:"
+msgstr ""
+
+#: templates/account/email.html:43
+msgid ""
+"You currently do not have any e-mail address set up. You should really add "
+"an e-mail address so you can receive notifications, reset your password, etc."
+msgstr ""
+
+#: templates/account/email.html:48
+msgid "Add E-mail Address"
+msgstr ""
+
+#: templates/account/email.html:53
+msgid "Add E-mail"
+msgstr ""
+
+#: templates/account/email.html:63
+msgid "Do you really want to remove the selected e-mail address?"
+msgstr ""
+
+#: templates/account/email_confirm.html:6
+#: templates/account/email_confirm.html:11
+msgid "Confirm E-mail Address"
+msgstr ""
+
+#: templates/account/email_confirm.html:14
+#, python-format
+msgid ""
+"Please confirm that\n"
+"                <a href=\"mailto:%(email)s\">%(email)s</a> is an e-mail "
+"address for user %(user_display)s\n"
+"                ."
+msgstr ""
+
+#: templates/account/email_confirm.html:19
+msgid "Confirm"
+msgstr ""
+
+#: templates/account/email_confirm.html:27
+#, python-format
+msgid ""
+"This e-mail confirmation link expired or is invalid. Please\n"
+"                <a href=\"%(email_url)s\">issue a new e-mail confirmation "
+"request</a>."
+msgstr ""
+
+#: templates/account/login.html:5 templates/account/login.html:21
+msgid "Sign In"
+msgstr ""
+
+#: templates/account/logout.html:5 templates/account/logout.html:12
+#: templates/account/logout.html:17
+msgid "Sign Out"
+msgstr ""
+
+#: templates/account/logout.html:13
+msgid "Are you sure you want to sign out?"
+msgstr ""
+
+#: templates/account/password_change.html:5
+#: templates/account/password_change.html:12
+#: templates/account/password_change.html:19
+#: templates/account/password_reset_from_key.html:4
+#: templates/account/password_reset_from_key.html:9
+#: templates/account/password_reset_from_key_done.html:4
+#: templates/account/password_reset_from_key_done.html:9
+msgid "Change Password"
+msgstr ""
+
+#: templates/account/password_reset.html:6
+#: templates/account/password_reset.html:10
+#: templates/account/password_reset_done.html:6
+#: templates/account/password_reset_done.html:10
+msgid "Password Reset"
+msgstr ""
+
+#: templates/account/password_reset.html:14
+msgid ""
+"Forgotten your password? Enter your e-mail address below, and we'll send you "
+"an e-mail allowing you to reset it."
+msgstr ""
+
+#: templates/account/password_reset.html:24
+msgid "Reset My Password"
+msgstr ""
+
+#: templates/account/password_reset.html:25
+msgid "Please contact us if you have any trouble resetting your password."
+msgstr ""
+
+#: templates/account/password_reset_done.html:16
+msgid ""
+"We have sent you an e-mail. Please contact us if you do not receive it "
+"within a few minutes."
+msgstr ""
+
+#: templates/account/password_reset_from_key.html:9
+msgid "Bad Token"
+msgstr ""
+
+#: templates/account/password_reset_from_key.html:12
+#, python-format
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please\n"
+"                request a <a href=\"%(passwd_reset_url)s\">new password "
+"reset</a>."
+msgstr ""
+
+#: templates/account/password_reset_from_key.html:24
+msgid "change password"
+msgstr ""
+
+#: templates/account/password_reset_from_key.html:28
+#: templates/account/password_reset_from_key_done.html:10
+msgid "Your password is now changed."
+msgstr ""
+
+#: templates/account/password_set.html:5 templates/account/password_set.html:13
+#: templates/account/password_set.html:20
+#: templates/account/password_set.html:27
+msgid "Set Password"
+msgstr ""
+
+#: templates/account/signup.html:5
+msgid "Signup"
+msgstr ""
+
+#: templates/account/signup.html:8 templates/account/signup.html:18
+msgid "Sign Up"
+msgstr ""
+
+#: templates/account/signup.html:10
+#, python-format
+msgid ""
+"Already have an account? Then please <a href=\"%(login_url)s\">sign in</a>."
+msgstr ""
+
+#: templates/account/signup_closed.html:5
+#: templates/account/signup_closed.html:8
+msgid "Sign Up Closed"
+msgstr ""
+
+#: templates/account/signup_closed.html:10
+msgid "We are sorry, but the sign up is currently closed."
+msgstr ""
+
+#: templates/account/snippets/already_logged_in.html:5
+msgid "Note"
+msgstr ""
+
+#: templates/account/snippets/already_logged_in.html:5
+#, python-format
+msgid "you are already logged in as %(user_display)s."
+msgstr ""
+
+#: templates/account/verification_sent.html:5
+#: templates/account/verification_sent.html:9
+#: templates/account/verified_email_required.html:5
+#: templates/account/verified_email_required.html:11
+msgid "Verify Your E-mail Address"
+msgstr ""
+
+#: templates/account/verification_sent.html:10
+msgid ""
+"We have sent an e-mail to you for verification. Follow the link provided to "
+"finalize the\n"
+"            signup process. Please contact us if you do not receive it "
+"within a few minutes."
+msgstr ""
+
+#: templates/account/verified_email_required.html:14
+msgid ""
+"This part of the site requires us to verify that\n"
+"            you are who you claim to be. For this purpose, we require that "
+"you\n"
+"            verify ownership of your e-mail address. "
+msgstr ""
+
+#: templates/account/verified_email_required.html:18
+msgid ""
+"We have sent an e-mail to you for\n"
+"            verification. Please click on the link inside this e-mail. "
+"Please\n"
+"            contact us if you do not receive it within a few minutes."
+msgstr ""
+
+#: templates/account/verified_email_required.html:22
+#, python-format
+msgid ""
+"<strong>Note:</strong> you can still <a href=\"%(email_url)s\">change your e-"
+"mail address</a>\n"
+"            ."
+msgstr ""
+
+#: templates/students/base.html:44
+msgid "Мой ребенок"
+msgstr "Менің балам"
+
+#: templates/students/base.html:50 templates/students/profile.html:6
+msgid "Профиль"
+msgstr "Профиль"
+
+#: templates/students/base.html:51 templates/students/homeworks.html:3
+#: templates/students/subject_detail.html:19
+msgid "Дом задание"
+msgstr "Үй жұмысы"
+
+#: templates/students/base.html:72
+msgid "Новости"
+msgstr "Жаңалықтар"
+
+#: templates/students/base.html:73
+msgid "Расписание"
+msgstr "Сабақ кес-сі"
+
+#: templates/students/homeworks.html:7
+msgid "Дом задание %(studentgroup_name)s"
+msgstr "%(studentgroup_name)s үй жұмысы"
+
+#: templates/students/homeworks.html:14
+msgid "Дата"
+msgstr "Күні"
+
+#: templates/students/monthlygrades.html:5
+#: templates/students/monthlygrades.html:9
+#: templates/students/subject_list.html:18
+msgid "Контрольная оценка"
+msgstr "Бақылау жұмысы"
+
+#: templates/students/monthlygrades.html:17
+msgid "Сентябрь"
+msgstr "Қыркүйек"
+
+#: templates/students/monthlygrades.html:18
+#: templates/students/monthlygrades.html:20
+#: templates/students/monthlygrades.html:22
+#: templates/students/monthlygrades.html:24
+#: templates/students/monthlygrades.html:26
+#: templates/students/monthlygrades.html:28
+#: templates/students/monthlygrades.html:30
+#: templates/students/monthlygrades.html:32
+#: templates/students/monthlygrades.html:34
+#: templates/students/monthlygrades.html:36
+#: templates/students/monthlygrades.html:38
+msgid "Разница"
+msgstr "Айырма"
+
+#: templates/students/monthlygrades.html:19
+msgid "Октябрь"
+msgstr "Қазан"
+
+#: templates/students/monthlygrades.html:21
+msgid "Ноябрь"
+msgstr "Қараша"
+
+#: templates/students/monthlygrades.html:23
+msgid "Декабрь"
+msgstr "Желтоқсан"
+
+#: templates/students/monthlygrades.html:25
+msgid "Январь"
+msgstr "Қаңтар"
+
+#: templates/students/monthlygrades.html:27
+msgid "Февраль"
+msgstr "Ақпан"
+
+#: templates/students/monthlygrades.html:29
+msgid "Март"
+msgstr "Наурыз"
+
+#: templates/students/monthlygrades.html:31
+msgid "Апрель"
+msgstr "Сәуір"
+
+#: templates/students/monthlygrades.html:33
+msgid "Май"
+msgstr "Мамыр"
+
+#: templates/students/monthlygrades.html:35
+msgid "Июнь"
+msgstr "Маусым"
+
+#: templates/students/monthlygrades.html:37
+msgid "Июль"
+msgstr "Шілде"
+
+#: templates/students/monthlygrades.html:39
+msgid "Август"
+msgstr "Тамыз"
+
+#: templates/students/profile.html:65
+msgid "Общий балл"
+msgstr "Жалпы ұпай"
+
+#: templates/students/profile.html:71
+msgid "Посмореть контрольную оценку"
+msgstr "Бақылау жұмысын қарау"
+
+#: templates/students/schedule.html:3 templates/students/schedule.html:7
+msgid "Расписание для группы"
+msgstr "Сабақ кестесі"
+
+#: templates/students/schedule.html:11
+msgid "Понодельник"
+msgstr "Дүйсенбі"
+
+#: templates/students/schedule.html:25
+msgid "Вторник"
+msgstr "Сейсенбі"
+
+#: templates/students/schedule.html:39
+msgid "Среда"
+msgstr "Сәрсенбі"
+
+#: templates/students/schedule.html:53
+msgid "Четверг"
+msgstr "Бейсенбі"
+
+#: templates/students/schedule.html:67
+msgid "Пятница"
+msgstr "Жұма"
+
+#: templates/students/schedule.html:81
+msgid "Суббота"
+msgstr "Сенбі"
+
+#: templates/students/settings.html:4 templates/students/settings.html:8
+msgid "Настройка"
+msgstr "Баптау"
+
+#: templates/students/settings.html:34
+msgid "Выйти"
+msgstr "Шығу"
+
+#: templates/students/subject_detail.html:14
+msgid "Тема урока"
+msgstr "Сабақтың тақырыбы"
+
+#: templates/students/subject_list.html:4
+#: templates/students/subject_list.html:8
+msgid "Предметы"
+msgstr "Пәндер"

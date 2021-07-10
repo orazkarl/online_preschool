@@ -1,5 +1,6 @@
 {% extends 'students/base.html' %}
 {% load students_tags %}
+{% load i18n %}
 
 {% block title %}Профиль {{ student.get_full_name }} {% endblock %}
 
@@ -10,16 +11,13 @@
         {% for lesson in subject.lessons.all %}
             <div class="card" style="background: #FF9412">
                 <div class="card-header">
-                    <h3 class="text-white" >Тема урока: {{ lesson.name }} </h3>
+                    <h3 class="text-white" >{% trans 'Тема урока' %}: {{ lesson.name }} </h3>
                     <span class="text-white">{{ lesson.date }}</span>
                     <p class="text-white">{{ lesson.description }}</p>
                 </div>
                 <div class="card-body bg-white">
-                    <h3 class="text-blue">Дом задание: {{ lesson.homework.name }}</h3>
+                    <h3 class="text-blue">{% trans 'Дом задание' %}: {{ lesson.homework.name }}</h3>
                     <p class="text-blue">{{ lesson.homework.description }}</p>
-{#                    {% if not request.user.student|is_send_homework:lesson.homework %}#}
-{#                        <a href="{% url 'student_homework' lesson.homework.id %}" class="btn btn-primary">Отправить дз</a>#}
-{#                    {% endif %}#}
                 </div>
             </div>
             <br>

@@ -1,13 +1,12 @@
 {% extends 'students/base.html' %}
-{% block title %}Настройка {% endblock %}
+{% load i18n %}
+
+{% block title %} {% trans 'Настройка' %}{% endblock %}
 
 {% block content %}
     <div class="container">
-        <h1 class="text-blue text-center">Настройка</h1>
+        <h1 class="text-blue text-center">{% trans 'Настройка' %}</h1>
         <div class="card">
-{#            <div class="card-header">#}
-{#                <h2 class="text-blue">Понодельник</h2>#}
-{#            </div>#}
             <div class="card-body bg-white">
                 <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
@@ -32,7 +31,7 @@
                 </p>
             </div>
             <div class="card-footer">
-                <a href="{% url 'account_logout' %}" class="btn btn-danger">Выйти</a>
+                <a href="{% url 'account_logout' %}" class="btn btn-danger">{% trans 'Выйти' %}</a>
             </div>
         </div>
     </div>
