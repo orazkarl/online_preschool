@@ -74,7 +74,7 @@ class Lesson(models.Model):
 
 
 class Grade(models.Model):
-    lesson = models.OneToOneField(Lesson, on_delete=models.CASCADE, related_name='grades', verbose_name='Урок')
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, related_name='grades', verbose_name='Урок')
     student = models.ForeignKey('userapp.Student', on_delete=models.CASCADE, related_name='grades',verbose_name='Студент')
     is_lesson = models.BooleanField(default=False, verbose_name='Успеваемость')
     is_homework = models.BooleanField(default=False, verbose_name='ДЗ')
@@ -93,6 +93,7 @@ class Grade(models.Model):
     class Meta:
         verbose_name = 'Оценка'
         verbose_name_plural = 'Оценки'
+        unique_together = ('lesson', 'student')
 
 
 MONTH_CHOICES = (

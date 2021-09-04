@@ -22,21 +22,6 @@
 <body>
 
 <div class="container">
-{#    <header class="bg-white" style="padding: 20px">#}
-{#        <div class=" flex-column flex-md-row align-items-center pb-3" >#}
-{#            <a href="/">#}
-{#                <img src="{% static 'img/logo.png' %}" width="102px">#}
-{#            </a>#}
-{##}
-{#        </div>#}
-{#        <div style="margin-left: auto; margin-right: auto;">#}
-{#            <a class="btn btn-orange" href="{% url 'student_profile' %}">Профиль</a>#}
-{#            <a class="btn btn-orange" href="{% url 'news_list' %}">Новости</a>#}
-{#            <a class="btn btn-orange" href="{% url 'student_schedule' request.user.student.student_group.id %}">Расписание</a>#}
-{#            <a class="btn btn-orange" href="{% url 'student_subjects' %}">Предметы</a>#}
-
-{#        </div>#}
-{#    </header>#}
     <header class="blog-header">
         <div class="row flex-nowrap justify-content-between align-items-center">
             <div class="col-12 text-center">
@@ -55,13 +40,7 @@
                         {% if LANGUAGE_CODE != language.code %}
                             <button class="btn btn-orange" name="language" value="{{ language.code }}" style="margin-top: 5px; padding-left: 10px; padding-right: 10px; text-transform: uppercase">{{ language.code }}</button>
                         {% endif %}
-
                     {% endfor %}
-{#                    {% if LANGUAGE_CODE == 'ru' %}#}
-{#                        <button class="btn btn-orange" name="language" value="kk" style="margin-top: 5px; padding-left: 10px; padding-right: 10px">KK</button>#}
-{#                    {% elif LANGUAGE_CODE == 'kk' %}#}
-{#                        <button class="btn btn-orange" name="language" value="ru" style="margin-top: 5px; padding-left: 10px; padding-right: 10px">RU</button>#}
-{#                    {% endif %}#}
                 </form>
 
             </div>
@@ -70,7 +49,9 @@
             </div>
             <div class="col-4">
                 <a class="btn btn-orange btn-header" href="{% url 'news_list' %}" style="margin-top: 5px">{% trans 'Новости' %}</a>
-                <a class="btn btn-orange btn-header" href="{% url 'student_schedule' request.user.student.student_group.id %}" style="margin-top: 5px;">{% trans 'Расписание' %}</a>
+                <a class="btn btn-orange btn-header"
+                   href="{% if request.user.student.student_group %}{% url 'student_schedule' request.user.student.student_group.id %}{% endif %}"
+                   style="margin-top: 5px;">{% trans 'Расписание' %}</a>
                 <a href="{% url 'student_settings' %}" style="background: none"> <img src="{% static 'img/settings.png' %}" height="38px"></a>
             </div>
         </div>
