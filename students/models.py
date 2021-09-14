@@ -17,11 +17,11 @@ DAYS_OF_WEEK = (
 
 class Schedule(models.Model):
     group_student = models.ForeignKey(StudentGroup, on_delete=models.CASCADE, related_name='schedule', verbose_name='Группа')
-    slug = models.SlugField(unique=True, default='', blank=True)
+#     slug = models.SlugField(unique=True, default='', blank=True)
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.group_student.name)
-        print(slugify(self.group_student.name))
+#         self.slug = slugify(self.group_student.name)
+#         print(slugify(self.group_student.name))
         super().save(*args, **kwargs)
 
     def __str__(self):
