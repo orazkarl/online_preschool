@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Subject, StudentGroup, HomeWork
+from .models import Subject, StudentGroup, HomeWork, Lesson
 
 
 admin.site.register(Subject)
@@ -17,6 +17,9 @@ class HomeWorkAdmin(admin.ModelAdmin):
     list_display = ['student_group', 'subject', 'date']
     list_filter = ('subject', 'student_group__name',)
 
-
-
-
+@admin.register(Lesson)
+class LessonAdmin(admin.ModelAdmin):
+    list_display = ['subject', 'student_group', 'name', 'description', 'description']
+    list_filter = ('subject', 'student_group__name',)
+    readonly_fields = ('subject', 'student_group')
+   
