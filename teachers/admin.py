@@ -21,5 +21,5 @@ class HomeWorkAdmin(admin.ModelAdmin):
 class LessonAdmin(admin.ModelAdmin):
     list_display = ['subject', 'student_group', 'name', 'description', 'date']
     list_filter = ('subject', 'student_group__name',)
-    readonly_fields = ('subject', 'student_group')
+    readonly_fields = ('subject', 'student_group__name')
    
