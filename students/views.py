@@ -1,79 +1,66 @@
 from django.db.models import OuterRef, Subquery
+from django.shortcuts import get_object_or_404
 from django.views import generic
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
 
-from teachers.models import  Subject, Grade, MonthlyGrade, HomeWork
-from .models import  EventSchedule, TimeLesson, StudentGroup
-from .utils import is_student
+from students import DAYS_OF_WEEK
+from students.models import EventSchedule
+from students.utils import is_student
+from teachers.models import Subject, Grade, MonthlyGrade, HomeWork, StudentGroup
 
 
 @method_decorator([login_required, user_passes_test(is_student, login_url='/')], name='dispatch')
 class StudentProfileView(generic.TemplateView):
     template_name = 'students/profile.html'
 
-    def get(self, request, *args, **kwargs):
-        student = request.user
+    def get_context_data(self, **kwargs):
+        student = self.request.user
         student_grades = Grade.objects.filter(student=student.student)
-        student_grades_dict = dict()
-        total = 0
+        student_grades_dict = {}
+
         for grade in student_grades:
-            if not grade.lesson.subject.name in student_grades_dict:
-                student_grades_dict[grade.lesson.subject.name] = 0
-            student_grades_dict[grade.lesson.subject.name] += grade.get_grade()
-            total += grade.get_grade()
-        self.extra_context = {
+            subject_name = grade.lesson.subject.name
+            student_grades_dict[subject_name] = student_grades_dict.get(subject_name, 0) + grade.get_grade()
+
+        total = sum(student_grades_dict.values())
+
+        context = super().get_context_data(**kwargs)
+        context.update({
             'student': student,
             'student_grades_dict': student_grades_dict,
-            'total': total
-        }
-        return super().get(request, *args, **kwargs)
+            'total': total,
+        })
+        return context
 
 
 class ScheduleView(generic.TemplateView):
     template_name = 'students/schedule.html'
 
     def get(self, request, *args, **kwargs):
-        student_group = StudentGroup.objects.get(id=self.kwargs.get('group_id'))
-        time_lessons = TimeLesson.objects.all()
-        monday = EventSchedule.objects.filter(schedule__group_student=student_group, day='0')
-        tuesday = EventSchedule.objects.filter(schedule__group_student=student_group, day='1')
-        wednesday = EventSchedule.objects.filter(schedule__group_student=student_group, day='2')
-        thursday = EventSchedule.objects.filter(schedule__group_student=student_group, day='3')
-        friday = EventSchedule.objects.filter(schedule__group_student=student_group, day='4')
-        saturday = EventSchedule.objects.filter(schedule__group_student=student_group, day='5')
-        sunday = EventSchedule.objects.filter(schedule__group_student=student_group, day='6')
+        student_group = get_object_or_404(StudentGroup, id=self.kwargs.get('group_id'))
+        days = [day[1] for day in DAYS_OF_WEEK]
+        day_schedules = {
+            day: EventSchedule.objects.filter(
+                schedule__group_student=student_group, day=day
+            ).select_related('time_lesson', 'subject')
+            for day in days
+        }
         self.extra_context = {
             'student_group': student_group,
-            'time_lessons': time_lessons,
-            'monday': monday,
-            'tuesday': tuesday,
-            'wednesday': wednesday,
-            'thursday': thursday,
-            'friday': friday,
-            'saturday': saturday,
-            'sunday': sunday,
+            'day_schedules': day_schedules,
         }
         return super().get(request, *args, **kwargs)
+
 
 @method_decorator([login_required, user_passes_test(is_student, login_url='/')], name='dispatch')
 class SubjectListView(generic.ListView):
     model = Subject
     template_name = 'students/subject_list.html'
 
-    def get(self, request, *args, **kwargs):
-        self.queryset = request.user.student.student_group.subjects.all()
-        return super().get(request, *args, **kwargs)
-
-
-@method_decorator([login_required, user_passes_test(is_student, login_url='/')], name='dispatch')
-class SubjectDetailView(generic.DetailView):
-    model = Subject
-    template_name = 'students/subject_detail.html'
-
-    def get(self, request, *args, **kwargs):
-        return super().get(request, *args, **kwargs)
+    def get_queryset(self):
+        return self.request.user.student.student_group.subjects.all()
 
 
 @method_decorator([login_required, user_passes_test(is_student, login_url='/')], name='dispatch')
@@ -85,18 +72,10 @@ class MonthlyGradesView(generic.TemplateView):
         subject = Subject.objects.get(id=self.kwargs['pk'])
         monthly_grades = MonthlyGrade.objects.filter(student=OuterRef('pk'), subject=subject)
         students = studentgroup.students.all().annotate(
-            month1=Subquery(monthly_grades.filter(month='1').values('grade')),
-            month2=Subquery(monthly_grades.filter(month='2').values('grade')),
-            month3=Subquery(monthly_grades.filter(month='3').values('grade')),
-            month4=Subquery(monthly_grades.filter(month='4').values('grade')),
-            month5=Subquery(monthly_grades.filter(month='5').values('grade')),
-            month6=Subquery(monthly_grades.filter(month='6').values('grade')),
-            month7=Subquery(monthly_grades.filter(month='7').values('grade')),
-            month8=Subquery(monthly_grades.filter(month='8').values('grade')),
-            month9=Subquery(monthly_grades.filter(month='9').values('grade')),
-            month10=Subquery(monthly_grades.filter(month='10').values('grade')),
-            month11=Subquery(monthly_grades.filter(month='11').values('grade')),
-            month12=Subquery(monthly_grades.filter(month='12').values('grade')),
+            **{
+                f'month{i}': Subquery(monthly_grades.filter(month=str(i)).values('grade'))
+                for i in range(1, 13)
+            }
         )
         self.extra_context = {
             'subject': subject,
@@ -109,16 +88,18 @@ class HomeWorksView(generic.ListView):
     model = HomeWork
     template_name = 'students/homeworks.html'
 
-    def get(self, request, *args, **kwargs):
-        studentgroup = request.user.student.student_group
-        self.queryset = HomeWork.objects.filter(student_group=studentgroup)
-        self.extra_context = {
-            'studentgroup': studentgroup
-        }
-        return super().get(request, *args, **kwargs)
+    def get_queryset(self):
+        student_group = self.request.user.student.student_group
+        return HomeWork.objects.filter(student_group=student_group)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({
+            'studentgroup': self.request.user.student.student_group,
+        })
+        return context
 
 
 @method_decorator([login_required, user_passes_test(is_student, login_url='/')], name='dispatch')
 class SettingsView(generic.TemplateView):
     template_name = 'students/settings.html'
-

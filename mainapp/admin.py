@@ -7,4 +7,3 @@ from .models import News
 class NewsAdmin(admin.ModelAdmin):
     list_display = ['title', 'created']
     list_filter = ['created']
-

@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from django.views import generic
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
@@ -27,7 +27,6 @@ class HomeView(generic.TemplateView):
 @method_decorator([login_required, user_passes_test(is_student, login_url='/')], name='dispatch')
 class NewsListView(generic.ListView):
     model = News
-    # paginate_by = 10
 
 
 @method_decorator([login_required, user_passes_test(is_student, login_url='/')], name='dispatch')

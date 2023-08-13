@@ -5,90 +5,23 @@
 {% block content %}
     <div class="container">
         <h1 class="text-blue text-center">{% trans 'Расписание для группы' %} "{{ student_group }}"</h1>
-        {% if monday %}
-            <div class="card w-75" style="margin-left: auto; margin-right: auto">
-                <div class="card-header">
-                    <h2 class="text-blue">{% trans 'Понодельник' %}</h2>
-                </div>
-                <div class="card-body bg-white">
-                    {% for event in monday %}
-                        <h3 class="text-orange">{{ event.time_lesson }} |
-                            {% if event.subject %}{{ event.subject }}{% else %}---{% endif %}</h3>
-                    {% endfor %}
-                </div>
-            </div>
-            <br>
-        {% endif %}
-        {% if tuesday %}
-        <div class="card w-75" style="margin-left: auto; margin-right: auto">
-            <div class="card-header">
-                <h2 class="text-blue">{% trans 'Вторник' %}</h2>
-            </div>
-            <div class="card-body bg-white">
-                {% for event in tuesday %}
-                    <h3 class="text-orange">{{ event.time_lesson }} |
-                        {% if event.subject %}{{ event.subject }}{% else %}---{% endif %}</h3>
-                {% endfor %}
-            </div>
-        </div>
-        <br>
-    {% endif %}
-        {% if wednesday %}
-        <div class="card w-75" style="margin-left: auto; margin-right: auto">
-            <div class="card-header">
-                <h2 class="text-blue">{% trans 'Среда' %}</h2>
-            </div>
-            <div class="card-body bg-white">
-                {% for event in wednesday %}
-                    <h3 class="text-orange">{{ event.time_lesson }} |
-                        {% if event.subject %}{{ event.subject }}{% else %}---{% endif %}</h3>
-                {% endfor %}
-            </div>
-        </div>
-        <br>
-    {% endif %}
-        {% if thursday %}
-        <div class="card w-75" style="margin-left: auto; margin-right: auto">
-            <div class="card-header">
-                <h2 class="text-blue">{% trans 'Четверг' %}</h2>
-            </div>
-            <div class="card-body bg-white">
-                {% for event in thursday %}
-                    <h3 class="text-orange">{{ event.time_lesson }} |
-                        {% if event.subject %}{{ event.subject }}{% else %}---{% endif %}</h3>
-                {% endfor %}
-            </div>
-        </div>
-        <br>
-    {% endif %}
-        {% if friday %}
-        <div class="card w-75" style="margin-left: auto; margin-right: auto">
-            <div class="card-header">
-                <h2 class="text-blue">{% trans 'Пятница' %}</h2>
-            </div>
-            <div class="card-body bg-white">
-                {% for event in friday %}
-                    <h3 class="text-orange">{{ event.time_lesson }} |
-                        {% if event.subject %}{{ event.subject }}{% else %}---{% endif %}</h3>
-                {% endfor %}
-            </div>
-        </div>
-        <br>
-    {% endif %}
-        {% if saturday %}
-    <div class="card w-75" style="margin-left: auto; margin-right: auto">
-            <div class="card-header">
-                <h2 class="text-blue">{% trans 'Суббота' %}</h2>
-            </div>
-            <div class="card-body bg-white">
-                {% for event in saturday %}
-                    <h3 class="text-orange">{{ event.time_lesson }} |
-                        {% if event.subject %}{{ event.subject }}{% else %}---{% endif %}</h3>
-                {% endfor %}
-            </div>
-        </div>
-        <br>
-    {% endif %}
-    </div>
 
+        {% for day, day_name in day_schedules.items %}
+            {% if day_name %}
+                <div class="card w-75" style="margin-left: auto; margin-right: auto">
+                    <div class="card-header">
+                        <h2 class="text-blue">{% trans day %}</h2>
+                    </div>
+                    <div class="card-body bg-white">
+                        {% for event in day_name %}
+                            <h3 class="text-orange">{{ event.time_lesson }} |
+                                {% if event.subject %}{{ event.subject }}{% else %}---{% endif %}</h3>
+                        {% endfor %}
+                    </div>
+                </div>
+                <br>
+            {% endif %}
+        {% endfor %}
+
+    </div>
 {% endblock %}

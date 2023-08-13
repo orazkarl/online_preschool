@@ -4,6 +4,7 @@ from .models import Schedule, EventSchedule, TimeLesson
 
 admin.site.register(TimeLesson)
 
+
 class EventScheduleInline(admin.TabularInline):
     model = EventSchedule
     raw_id_fields = ['schedule']
@@ -14,8 +15,3 @@ class EventScheduleInline(admin.TabularInline):
 class ScheduleAdmin(admin.ModelAdmin):
     list_display = ['group_student']
     inlines = [EventScheduleInline]
-
-
-
-
-

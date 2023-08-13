@@ -1,27 +1,16 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from transliterate import slugify
 
+from students import DAYS_OF_WEEK
 from teachers.models import StudentGroup, Subject
-
-DAYS_OF_WEEK = (
-    ("0", 'Monday'),
-    ("1", 'Tuesday'),
-    ("2", 'Wednesday'),
-    ("3", 'Thursday'),
-    ("4", 'Friday'),
-    ("5", 'Saturday'),
-    ("6", 'Sunday'),
-)
 
 
 class Schedule(models.Model):
-    group_student = models.ForeignKey(StudentGroup, on_delete=models.CASCADE, related_name='schedule', verbose_name='Группа')
-#     slug = models.SlugField(unique=True, default='', blank=True)
+    group_student = models.ForeignKey(
+        StudentGroup, on_delete=models.CASCADE, related_name='schedule', verbose_name='Группа'
+    )
 
     def save(self, *args, **kwargs):
-#         self.slug = slugify(self.group_student.name)
-#         print(slugify(self.group_student.name))
         super().save(*args, **kwargs)
 
     def __str__(self):
@@ -42,19 +31,29 @@ class TimeLesson(models.Model):
         ordering = ['start_lesson']
 
     def get_time(self):
-        return f"{self.start_lesson.strftime('%H')}:{self.start_lesson.strftime('%M')} - {self.end_lesson.strftime('%H')}:{self.end_lesson.strftime('%M')}"
+        return (f"{self.start_lesson.strftime('%H')}:{self.start_lesson.strftime('%M')} - "
+                f"{self.end_lesson.strftime('%H')}:{self.end_lesson.strftime('%M')}")
 
     def __str__(self):
         return self.get_time()
 
 
 class EventSchedule(models.Model):
-    day = models.CharField(max_length=1, choices=DAYS_OF_WEEK, verbose_name='День')
-    time_lesson = models.ForeignKey(TimeLesson, on_delete=models.SET_NULL, null=True, verbose_name='Время урока',
-                                    related_name='event_schedules')
-    schedule = models.ForeignKey(Schedule, on_delete=models.CASCADE, related_name='event_schedules', verbose_name='Расписание')
-    subject = models.ForeignKey(Subject, on_delete=models.SET_NULL, related_name='event_schedules', verbose_name='Предмет',  null=True,blank=True, default='')
-
+    day = models.CharField(max_length=127, choices=DAYS_OF_WEEK, verbose_name='День')
+    time_lesson = models.ForeignKey(
+        TimeLesson, on_delete=models.SET_NULL, null=True, verbose_name='Время урока', related_name='event_schedules'
+    )
+    schedule = models.ForeignKey(
+        Schedule, on_delete=models.CASCADE, related_name='event_schedules', verbose_name='Расписание'
+    )
+    subject = models.ForeignKey(
+        Subject,
+        on_delete=models.SET_NULL,
+        related_name='event_schedules',
+        verbose_name='Предмет',
+        null=True, blank=True,
+        default=''
+    )
     comment = models.CharField(max_length=100, null=True, blank=True, verbose_name='Комментарий')
 
     class Meta:
