@@ -48,8 +48,6 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'ckeditor',
     'mathfilters',
-
-    'debug_toolbar'
 ]
 
 MIDDLEWARE = [
@@ -61,7 +59,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ]
 
 ROOT_URLCONF = 'online_preschool.urls'
@@ -190,7 +187,3 @@ ACCOUNT_FORMS = {
     'reset_password_from_key': 'user_auth.forms.CustomResetPasswordKeyForm',
     'disconnect': 'allauth.socialaccount.forms.DisconnectForm',
 }
-
-INTERNAL_IPS = [
-    "127.0.0.1",
-]
